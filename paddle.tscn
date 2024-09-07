@@ -8,7 +8,8 @@ size = Vector2(80, 20)
 [node name="Paddle" type="Node2D"]
 script = ExtResource("1_48h7q")
 
-[node name="PaddleMdl" type="Area2D" parent="."]
+[node name="PaddleMdl" type="AnimatableBody2D" parent="."]
+sync_to_physics = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleMdl"]
 shape = SubResource("RectangleShape2D_joshg")
