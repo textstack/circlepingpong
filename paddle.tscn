@@ -1,14 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://qfubdmubujux"]
+[gd_scene load_steps=3 format=3 uid="uid://qfubdmubujux"]
+
+[ext_resource type="Script" path="res://paddle.gd" id="1_48h7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joshg"]
 size = Vector2(80, 20)
 
-[node name="Node2D" type="Node2D"]
+[node name="Paddle" type="Node2D"]
+script = ExtResource("1_48h7q")
 
-[node name="Paddle" type="Area2D" parent="."]
+[node name="PaddleMdl" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleMdl"]
 shape = SubResource("RectangleShape2D_joshg")
 
-[node name="Polygon2D" type="Polygon2D" parent="Paddle"]
+[node name="Polygon2D" type="Polygon2D" parent="PaddleMdl"]
 polygon = PackedVector2Array(-40, -10, 40, -10, 40, 10, -40, 10)

@@ -2,12 +2,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kkcas"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Ball" type="Node2D"]
 
-[node name="Ball" type="Area2D" parent="."]
+[node name="BallMdl" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallMdl"]
 shape = SubResource("CircleShape2D_kkcas")
 
-[node name="Polygon2D" type="Polygon2D" parent="Ball"]
+[node name="Polygon2D" type="Polygon2D" parent="BallMdl"]
 polygon = PackedVector2Array(0, -10, 7, -7, 10, 0, 7, 7, 0, 10, -7, 7, -10, 0, -7, -7)

@@ -1,7 +1,13 @@
-[gd_scene format=3 uid="uid://i41s1hlvmvf5"]
+[gd_scene load_steps=3 format=3 uid="uid://i41s1hlvmvf5"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Script" path="res://main_scene.gd" id="1_jawee"]
+[ext_resource type="PackedScene" uid="uid://qfubdmubujux" path="res://paddle.tscn" id="1_saa7w"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_jawee")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 648, 0, 648)
+
+[node name="Paddle" parent="." instance=ExtResource("1_saa7w")]
