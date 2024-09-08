@@ -13,6 +13,7 @@ sync_to_physics = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleMdl"]
 shape = SubResource("RectangleShape2D_joshg")
+one_way_collision = true
 
 [node name="Polygon2D" type="Polygon2D" parent="PaddleMdl"]
 polygon = PackedVector2Array(-40, -10, 40, -10, 40, 10, -40, 10)

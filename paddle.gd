@@ -7,13 +7,12 @@ func _process(delta: float) -> void:
 
 func orientPaddle(pos: Vector2) -> void:
 	var center = get_viewport_rect().size / 2
+	var mag = Screen.getCircleRadius()
 	var diff = pos - center
 
 	var ang = atan(diff.y / diff.x)
 	if pos.x < center.x:
 		ang += PI
 	
-	var mag = min(center.x, center.y) * 0.8
-	
 	position = center + Vector2(cos(ang) * mag, sin(ang) * mag)
-	$PaddleMdl.rotation = ang + PI/2
+	$PaddleMdl.rotation = ang - PI/2
