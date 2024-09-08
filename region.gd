@@ -3,4 +3,7 @@ extends Node2D
 signal lose
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	lose.emit()
+	var parent = body.get_parent()
+	if parent is Ball:
+		lose.emit()
+		parent.curl = 0

@@ -2,13 +2,13 @@ extends Node2D
 
 #configurables
 var baseSpeed = 150
-var addSpeed = 2
+var addSpeed = 4
 var subtract = 5
 
 var ball = preload("res://ball.tscn")
-var points = 0
-var ballsInGame = 0
-var totalPoints = 0
+var points = 0 # the parenthesized points number
+var ballsInGame = 0 # counter for current ball count
+var totalPoints = 0 # the unparenthesized points number
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,7 +24,9 @@ func _process(delta: float) -> void:
 func createBall() -> void:
 	var speed = baseSpeed + addSpeed * totalPoints
 	var ang = randf_range(-PI, PI)
+
 	ballsInGame += 1
+	showPoints()
 	
 	var inst = ball.instantiate()
 	inst.position = get_viewport_rect().size / 2
@@ -32,21 +34,31 @@ func createBall() -> void:
 	inst.collide.connect(addPoints)
 	add_child(inst)
 	
+func determinePointsNeeded(minus: int = 0) -> int:
+	var pointsNeeded = 0
+	for i in ballsInGame - minus:
+		pointsNeeded += subtract * (i + 1)
+
+	return pointsNeeded
+	
 func showPoints() -> void:
-	$PointDisplay.text = str(totalPoints, " (", points, ")")
+	var pointsLeft = determinePointsNeeded() - points
+	$PointDisplay.text = str(totalPoints, " (", pointsLeft, ")")
 	
 func addPoints() -> void:
 	points += 1
 	totalPoints += 1
 	showPoints()
 	
-	if points % subtract == 0:
+	
+	if points >= determinePointsNeeded():
 		createBall()
 	
 func removePoints() -> void:
 	ballsInGame -= 1
 	totalPoints -= 1
-	points -= subtract
+	
+	points = determinePointsNeeded(1)
 	showPoints()
 	
 	if ballsInGame <= 0:
@@ -55,5 +67,6 @@ func removePoints() -> void:
 func _on_ball_timer_timeout() -> void:
 	points = 0
 	totalPoints = 0
+	ballsInGame = 0
 	showPoints()
 	createBall()
