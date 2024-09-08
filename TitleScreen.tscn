@@ -27,8 +27,8 @@ grow_vertical = 2
 script = ExtResource("1_delir")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
+modulate = Color(0.310617, 0.310617, 0.310617, 1)
+self_modulate = Color(0.909691, 0.902694, 0.89316, 1)
 layout_mode = 0
 offset_left = -477.0
 offset_top = -445.0

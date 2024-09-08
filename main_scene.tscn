@@ -9,7 +9,7 @@ script = ExtResource("1_jawee")
 
 [node name="Background" type="Polygon2D" parent="."]
 scale = Vector2(1.334, 1.334)
-color = Color(0, 0, 0, 1)
+color = Color(0.309804, 0.309804, 0.309804, 1)
 polygon = PackedVector2Array(0, 0, 600, 0, 600, 600, 0, 600)
 
 [node name="Region" parent="." instance=ExtResource("2_18ihw")]
