@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://qfubdmubujux"]
+[gd_scene load_steps=4 format=3 uid="uid://qfubdmubujux"]
 
 [ext_resource type="Script" path="res://paddle.gd" id="1_48h7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joshg"]
 size = Vector2(80, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6r"]
+size = Vector2(80, 2)
 
 [node name="Paddle" type="Node2D"]
 script = ExtResource("1_48h7q")
@@ -13,6 +16,17 @@ sync_to_physics = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleMdl"]
 shape = SubResource("RectangleShape2D_joshg")
+one_way_collision = true
+
+[node name="Backup1" type="CollisionShape2D" parent="PaddleMdl"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_aln6r")
+one_way_collision = true
+
+[node name="Backup2" type="CollisionShape2D" parent="PaddleMdl"]
+position = Vector2(0, 22)
+shape = SubResource("RectangleShape2D_aln6r")
+one_way_collision = true
 
 [node name="Polygon2D" type="Polygon2D" parent="PaddleMdl"]
 polygon = PackedVector2Array(-40, -10, 40, -10, 40, 10, -40, 10)

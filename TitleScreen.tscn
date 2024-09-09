@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpp1qmotp6ndl"]
+
+[ext_resource type="Script" path="res://TitleScreen.gd" id="1_delir"]
+[ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_0u4ua"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_scw6h"]
+
+[sub_resource type="Theme" id="Theme_3pqgu"]
+default_font = ExtResource("2_0u4ua")
+default_font_size = 50
+Button/fonts/font = ExtResource("2_0u4ua")
+
+[sub_resource type="Theme" id="Theme_x2x6d"]
+default_font_size = 0
+Label/font_sizes/font_size = 100
+Label/fonts/font = ExtResource("2_0u4ua")
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_delir")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -477.0
+offset_top = -445.0
+offset_right = 461.0
+offset_bottom = 452.0
+texture = SubResource("CanvasTexture_scw6h")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.5
+offset_top = -44.0
+offset_right = 97.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3pqgu")
+text = "Start"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = 93.0
+offset_right = 97.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3pqgu")
+text = "QUIT"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -436.0
+offset_top = -309.0
+offset_right = 428.0
+offset_bottom = -102.0
+theme = SubResource("Theme_x2x6d")
+text = "SPIN SERVE
+SHOWDOWN"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_b_utton_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
