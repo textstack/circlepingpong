@@ -4,7 +4,7 @@ class_name Ball
 signal collide
 
 #configurables
-var speedMult = 1.04
+var speedMult = 1.03
 var curlChance = 13
 var curlMin = 0.01
 var curlMax = 0.04
@@ -15,19 +15,27 @@ var curl = 0
 
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
+	
+func noMoreCollisions() -> void:
+	$BallMdl/CollisionShape2D.disabled = true
 
-func tryEmitCollide() -> void:
+func tryEmitCollide(obj:Object) -> void:
+	if obj.get_parent() is not Paddle:
+		return
+	
 	if Time.get_unix_time_from_system() - lastHit < 0.25:
 		return
+
+	velocity = velocity * speedMult
 	
 	if curl != 0:
 		curl = 0
 	
 	var doCurl = randi_range(0, curlChance)
 	if doCurl == 0:
-		curl += randf_range(curlMin, clamp(velocity.length() * 0.013, curlMin, curlMax))
+		curl += randf_range(curlMin, clamp(velocity.length() * 0.07, curlMin, curlMax))
 	elif doCurl == 1:
-		curl -= randf_range(curlMin, clamp(velocity.length() * 0.013, curlMin, curlMax))
+		curl -= randf_range(curlMin, clamp(velocity.length() * 0.07, curlMin, curlMax))
 	
 	collide.emit()
 	lastHit = Time.get_unix_time_from_system()
@@ -36,10 +44,10 @@ func tryEmitCollide() -> void:
 func _physics_process(delta: float) -> void:
 	var collision = $BallMdl.get_last_slide_collision()
 	if collision:
-		velocity = velocity.bounce(collision.get_normal()) * speedMult
-		tryEmitCollide()
-		
+		velocity = velocity.bounce(collision.get_normal())
+		tryEmitCollide(collision.get_collider())
+
 	velocity = velocity.rotated(curl)
-	
+
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
