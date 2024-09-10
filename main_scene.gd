@@ -10,12 +10,14 @@ var points = 0 # the parenthesized points number
 var ballsInGame = 0 # counter for current ball count
 var totalPoints = 0 # the unparenthesized points number
 
+var restart_button
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$CanvasLayer/pause_menu.visible = false
 	$Region.lose.connect(removePoints)
 	createBall()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -80,3 +82,7 @@ func _on_ball_timer_timeout() -> void:
 	$Background.lerpRotation = 0
 	showPoints()
 	createBall()
+
+
+
+	
