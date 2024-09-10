@@ -30,7 +30,7 @@ func setBG(delta: float) -> void:
 	position = get_viewport_rect().size / 2
 	rotation = (rotation * 4 + lerpRotation) / 5
 	
-	var vel = velocity.rotated(rotation)
+	var vel = velocity.rotated(-rotation)
 	$Grid1.position = $Grid1.position + vel * delta * 0.2
 	$Grid2.position = $Grid2.position + vel * delta * 0.15
 	$Grid3.position = $Grid3.position + vel * delta * 0.1

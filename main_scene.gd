@@ -9,10 +9,13 @@ var ball = preload("res://ball.tscn")
 var points = 0 # the parenthesized points number
 var ballsInGame = 0 # counter for current ball count
 var totalPoints = 0 # the unparenthesized points number
+var pos = Vector2(0, 0)
+var shifted = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	pos = position
 	$Region.lose.connect(removePoints)
 	createBall()
 
@@ -22,6 +25,15 @@ func _process(_delta: float) -> void:
 	var size = Screen.getCircleRadius() / 60
 	$Region.scale = Vector2(size, size)
 	$Region.position = get_viewport_rect().size / 2
+	
+	if position != pos:
+		if shifted:
+			position = pos
+			shifted = false
+		else:
+			shifted = true
+	else:
+		shifted = false
 
 
 func createBall() -> void:
@@ -51,7 +63,8 @@ func showPoints() -> void:
 	$PointDisplay.text = str(totalPoints, " (", pointsLeft, ")")
 
 
-func addPoints() -> void:
+func addPoints(collision) -> void:
+	position = position - collision.get_normal() * 3
 	points += 1
 	totalPoints += 1
 	showPoints()
@@ -72,8 +85,8 @@ func removePoints() -> void:
 
 
 func _on_ball_timer_timeout() -> void:
-	for ball in get_tree().get_nodes_in_group("balls"):
-		ball.queue_free()
+	for b in get_tree().get_nodes_in_group("balls"):
+		b.queue_free()
 	points = 0
 	totalPoints = 0
 	ballsInGame = 0

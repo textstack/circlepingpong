@@ -1,11 +1,11 @@
 extends Node2D
 class_name Ball
 
-signal collide
+signal collide(collision)
 
 #configurables
 var speedMult = 1.03
-var curlChance = 17
+var curlChance = 15
 var curlMin = 0.01
 var curlMax = 0.03
 var curlFactor = 0.06
@@ -20,21 +20,15 @@ func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
 
 
-func noMoreCollisions() -> void:
-	$BallMdl/CollisionShape2D.disabled = true
+func prepareDelete() -> void:
+	curl = 0
+	$BallMdl/CurveTrail.emitting = false
+	$BallMdl/BasicTrail.emitting = false
+	$BallMdl/CollisionShape2D.queue_free()
 	$DeleteTimer.start()
 
 
-func tryEmitCollide(obj:Object) -> void:
-	if curl != 0:
-		curl = 0
-	
-	if obj.get_parent() is not Paddle:
-		return
-	
-	if Time.get_unix_time_from_system() - lastHit < 0.25:
-		return
-	
+func handleCurl() -> void:
 	var doCurl = randi_range(0, curlChance - collideCount)
 	if doCurl == 0:
 		curl = 1
@@ -42,10 +36,31 @@ func tryEmitCollide(obj:Object) -> void:
 		curl = -1
 	
 	if curl != 0:
+		$BallMdl/CurveTrail.emitting = true
+		$BallMdl/BasicTrail.emitting = false
 		collideCount = 0
 		curl *= randf_range(curlMin, clamp(velocity.length() * curlFactor, curlMin, curlMax))
+	else:
+		$BallMdl/CurveTrail.emitting = false
+		$BallMdl/BasicTrail.emitting = true
+
+
+func onCollide(collision) -> void:
+	velocity = velocity.bounce(collision.get_normal())
 	
-	collide.emit()
+	if curl != 0:
+		$BallMdl/CurveTrail.emitting = false
+		$BallMdl/BasicTrail.emitting = true
+		curl = 0
+	
+	if collision.get_collider().get_parent() is not Paddle:
+		return
+	
+	if Time.get_unix_time_from_system() - lastHit < 0.25:
+		return
+	
+	handleCurl()
+	collide.emit(collision)
 	lastHit = Time.get_unix_time_from_system()
 	velocity = velocity * speedMult
 	collideCount += 1
@@ -55,17 +70,9 @@ func tryEmitCollide(obj:Object) -> void:
 func _physics_process(_delta: float) -> void:	
 	var collision = $BallMdl.get_last_slide_collision()
 	if collision:
-		velocity = velocity.bounce(collision.get_normal())
-		tryEmitCollide(collision.get_collider())
-
-	if curl != 0:
-		velocity = velocity.rotated(curl)
-		$BallMdl/CurveTrail.emitting = true
-		$BallMdl/BasicTrail.emitting = false
-	else:
-		$BallMdl/CurveTrail.emitting = false
-		$BallMdl/BasicTrail.emitting = true
-
+		onCollide(collision)
+	
+	velocity = velocity.rotated(curl)
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
 
