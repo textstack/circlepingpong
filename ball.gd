@@ -5,16 +5,16 @@ signal collide(collision)
 
 #configurables
 var speedMult = 1.03
-var curlChance = 15
-var curlMin = 0.01
-var curlMax = 0.03
-var curlFactor = 0.06
+var spinChance = 15
+var sideSpinMin = 0.01
+var sideSpinMax = 0.03
+var sideSpinFactor = 0.06
 var backSpinMin = 0.02
 var backSpinMax = 0.03
 
 var velocity = Vector2(0, 0)
 var lastHit
-var curl = 0
+var sideSpin = 0
 var collideCount = 0
 var backSpin = Vector2(0, 0)
 var oldSpeed = 0
@@ -25,7 +25,7 @@ func _init() -> void:
 
 
 func prepareDelete() -> void:
-	curl = 0
+	sideSpin = 0
 	backSpin = Vector2(0, 0)
 	$BallMdl/CurveTrail.emitting = false
 	$BallMdl/BasicTrail.emitting = false
@@ -33,20 +33,23 @@ func prepareDelete() -> void:
 	$DeleteTimer.start()
 
 
-func handleCurl() -> void:
-	var doCurl = randi_range(0, curlChance - collideCount)
-	if doCurl == 0:
-		curl = 1
-	elif doCurl == 1:
-		curl = -1
-	elif doCurl == 2:
-		backSpin = velocity * -randf_range(backSpinMin, backSpinMax)
+func handleSpin() -> void:
+	var doSpin = randi_range(0, spinChance - collideCount)
+	if doSpin == 0:
+		sideSpin = 1
+	elif doSpin == 1:
+		sideSpin = -1
+	elif doSpin == 2:
+		backSpin = -velocity
+	elif doSpin == 3:
+		backSpin = velocity * 0.66
 	
-	if curl != 0 or backSpin != Vector2(0, 0):
+	if sideSpin != 0 or backSpin != Vector2(0, 0):
 		$BallMdl/CurveTrail.emitting = true
 		$BallMdl/BasicTrail.emitting = false
 		collideCount = 0
-		curl *= randf_range(curlMin, clamp(velocity.length() * curlFactor, curlMin, curlMax))
+		sideSpin *= randf_range(sideSpinMin, clamp(velocity.length() * sideSpinFactor, sideSpinMin, sideSpinMax))
+		backSpin *= randf_range(backSpinMin, backSpinMax)
 		oldSpeed = velocity.length()
 	else:
 		$BallMdl/CurveTrail.emitting = false
@@ -56,10 +59,10 @@ func handleCurl() -> void:
 func onCollide(collision) -> void:
 	velocity = velocity.bounce(collision.get_normal())
 	
-	if curl != 0 or backSpin != Vector2(0, 0):
+	if sideSpin != 0 or backSpin != Vector2(0, 0):
 		$BallMdl/CurveTrail.emitting = false
 		$BallMdl/BasicTrail.emitting = true
-		curl = 0
+		sideSpin = 0
 		backSpin = Vector2(0, 0)
 		velocity = velocity * (oldSpeed / velocity.length())
 	
@@ -69,7 +72,7 @@ func onCollide(collision) -> void:
 	if Time.get_unix_time_from_system() - lastHit < 0.25:
 		return
 	
-	handleCurl()
+	handleSpin()
 	collide.emit(collision)
 	lastHit = Time.get_unix_time_from_system()
 	velocity = velocity * speedMult
@@ -82,7 +85,7 @@ func _physics_process(_delta: float) -> void:
 	if collision:
 		onCollide(collision)
 	
-	velocity = velocity.rotated(curl)
+	velocity = velocity.rotated(sideSpin)
 	velocity = velocity + backSpin
 
 	$BallMdl.velocity = velocity

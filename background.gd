@@ -16,12 +16,12 @@ func _physics_process(delta: float) -> void:
 
 func updateBG() -> void:
 	var vel = Vector2(0, 0)
-	var spin = 0
+	var sideSpin = 0
 	for ball in get_tree().get_nodes_in_group("balls"):
 		vel += ball.velocity
-		spin += ball.curl
+		sideSpin += ball.sideSpin
 		
-	lerpRotation -= spin * 0.1
+	lerpRotation -= sideSpin * 0.1
 	velocity = (velocity * 12 + vel) / 13
 
 
