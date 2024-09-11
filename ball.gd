@@ -39,7 +39,7 @@ func handleSpin() -> void:
 	if frontSpin:
 		frontSpin = false
 		$BallMdl/Spindicator.visible = false
-		backSpin = velocity * 0.66
+		backSpin = velocity * 0.75
 	elif doSpin == 0:
 		sideSpin = 1
 	elif doSpin == 1:

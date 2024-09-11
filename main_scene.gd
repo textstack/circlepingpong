@@ -68,6 +68,7 @@ func addPoints(collision) -> void:
 	points += 1
 	totalPoints += 1
 	showPoints()
+	spark(collision)
 	
 	if points >= determinePointsNeeded():
 		createBall()
@@ -82,6 +83,12 @@ func removePoints() -> void:
 	
 	if ballsInGame <= 0:
 		$BallTimer.start()
+
+
+func spark(collision) -> void:
+	$PaddleSpark.rotation = $Paddle/PaddleMdl.rotation
+	$PaddleSpark.position = collision.get_position()
+	$PaddleSpark.emitting = true
 
 
 func _on_ball_timer_timeout() -> void:

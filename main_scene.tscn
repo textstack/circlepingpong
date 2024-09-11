@@ -1,9 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://i41s1hlvmvf5"]
+[gd_scene load_steps=9 format=3 uid="uid://i41s1hlvmvf5"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_jawee"]
 [ext_resource type="PackedScene" uid="uid://qfubdmubujux" path="res://paddle.tscn" id="1_saa7w"]
 [ext_resource type="PackedScene" uid="uid://2yr4p3g7jejs" path="res://region.tscn" id="2_18ihw"]
 [ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
+[ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
+
+[sub_resource type="Curve" id="Curve_uocoq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_47kfs"]
+curve = SubResource("Curve_uocoq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f0tt8"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_47kfs")
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_jawee")
@@ -11,6 +36,16 @@ script = ExtResource("1_jawee")
 [node name="Background" parent="." instance=ExtResource("2_enxwp")]
 
 [node name="Region" parent="." instance=ExtResource("2_18ihw")]
+
+[node name="PaddleSpark" type="GPUParticles2D" parent="."]
+position = Vector2(0, -10)
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_f0tt8")
+texture = ExtResource("5_vbyuq")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
 
 [node name="Paddle" parent="." instance=ExtResource("1_saa7w")]
 
