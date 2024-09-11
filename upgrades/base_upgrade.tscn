@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cdqi5uojsp3e5"]
+
+[node name="BaseUpgrade" type="Node2D"]
