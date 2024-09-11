@@ -1,6 +1,6 @@
 extends Node2D
 
-var ball = preload("res://ball.tscn")
+var ballNode = preload("res://ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
 
@@ -27,7 +27,7 @@ func createBall() -> void:
 	
 	var speed = gamemode.getBallSpeed()
 	var ang = randf_range(-PI, PI)
-	var inst = ball.instantiate()
+	var inst = ballNode.instantiate()
 	inst.position = get_viewport_rect().size / 2
 	inst.velocity = Vector2(cos(ang) * speed, sin(ang) * speed)
 	inst.collide.connect(onBallHit)

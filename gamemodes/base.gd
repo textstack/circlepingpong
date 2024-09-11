@@ -13,7 +13,7 @@ func getName() -> String:
 	return "One Ball"
 
 
-func onBallHit(ball, collision) -> void:
+func onBallHit(ball, _collision) -> void:
 	points += 1
 	ball.velocity = ball.velocity * (getBallSpeed() / ball.velocity.length())
 

@@ -2,10 +2,14 @@ extends BaseGamemode
 class_name EnduranceGamemode
 
 #configurables
-var speedMult = 1.025
+var speedMult = 1.03
 var pointsToNextBall = 5
 
 var ballPoints = 0
+
+
+func _init() -> void:
+	addSpeed = 4
 
 
 func getName() -> String:
@@ -20,7 +24,7 @@ func determinePointsNeeded(minus: int = 0) -> int:
 	return pointsNeeded
 
 
-func onBallHit(ball, collision) -> void:
+func onBallHit(ball, _collision) -> void:
 	points += 1
 	ballPoints += 1
 	ball.velocity = ball.velocity * speedMult
