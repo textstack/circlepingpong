@@ -31,7 +31,7 @@ texture = ExtResource("3_f200b")
 stretch_mode = 1
 
 [node name="Grid1" type="TextureRect" parent="."]
-modulate = Color(0.2, 0.08, 0.32, 1)
+modulate = Color(0.2, 0.0784314, 0.321569, 1)
 texture_filter = 1
 offset_left = -10000.0
 offset_top = -10000.0

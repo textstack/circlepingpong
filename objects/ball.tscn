@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ct4um6hd5ljc2"]
+[gd_scene load_steps=11 format=3 uid="uid://ct4um6hd5ljc2"]
 
-[ext_resource type="Script" path="res://ball.gd" id="1_r5k51"]
+[ext_resource type="Script" path="res://objects/ball.gd" id="1_r5k51"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="2_4411h"]
+[ext_resource type="Texture2D" uid="uid://cwr618c6gwd83" path="res://assets/circle1.png" id="3_ng2ht"]
 
 [sub_resource type="Curve" id="Curve_3e71x"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -15,8 +16,8 @@ particle_flag_disable_z = true
 radial_velocity_min = -2.23517e-05
 radial_velocity_max = -2.23517e-05
 gravity = Vector3(0, 0, 0)
-scale_min = 0.3
-scale_max = 0.3
+scale_min = 0.2
+scale_max = 0.2
 scale_curve = SubResource("CurveTexture_yrk6q")
 hue_variation_min = -2.23517e-08
 hue_variation_max = -2.23517e-08
@@ -33,8 +34,8 @@ curve = SubResource("Curve_juqcu")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nrt06"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-scale_min = 0.35
-scale_max = 0.35
+scale_min = 0.25
+scale_max = 0.25
 scale_curve = SubResource("CurveTexture_ycip7")
 
 [node name="Ball" type="Node2D" groups=["balls"]]
@@ -54,17 +55,28 @@ lifetime = 0.5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallMdl"]
 shape = SubResource("CircleShape2D_kkcas")
 
-[node name="Polygon2D" type="Polygon2D" parent="BallMdl"]
-polygon = PackedVector2Array(0, -10, 7, -7, 10, 0, 7, 7, 0, 10, -7, 7, -10, 0, -7, -7)
-
 [node name="CurveTrail" type="GPUParticles2D" parent="BallMdl"]
 emitting = false
-amount = 12
+amount = 14
 process_material = SubResource("ParticleProcessMaterial_nrt06")
 texture = ExtResource("2_4411h")
 lifetime = 2.0
 
+[node name="Sprite2D" type="Sprite2D" parent="BallMdl"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_4411h")
+
+[node name="Spindicator" type="Sprite2D" parent="BallMdl"]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_ng2ht")
+
 [node name="DeleteTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="SpinTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="timeout" from="DeleteTimer" to="." method="_on_delete_timer_timeout"]
+[connection signal="timeout" from="SpinTimer" to="." method="_on_spin_timer_timeout"]
