@@ -7,7 +7,7 @@ var gamemode
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	gamemode = NoUpgradesGamemode.new()
+	gamemode = EnduranceGamemode.new()
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
 	createBall()

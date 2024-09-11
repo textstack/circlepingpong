@@ -24,12 +24,12 @@ func updateBG() -> void:
 	lerpRotation -= sideSpin * 0.1
 	velocity = (velocity * 12 + vel) / 13
 
-
+var pos = Vector2(-10000, -10000)
 func setBG(delta: float) -> void:
 	position = get_viewport_rect().size / 2
 	rotation = (rotation * 4 + lerpRotation) / 5
 	
-	var vel = velocity.rotated(-rotation)
-	$Grid1.position = $Grid1.position + vel * delta * 0.2
-	$Grid2.position = $Grid2.position + vel * delta * 0.15
-	$Grid3.position = $Grid3.position + vel * delta * 0.1
+	pos = pos + velocity.rotated(-rotation) * delta
+	$Grid1.position = pos * 0.18
+	$Grid2.position = pos * 0.125
+	$Grid3.position = pos * 0.08

@@ -3,10 +3,14 @@ class_name BaseGamemode
 
 #configurables
 var baseSpeed = 150
-var addSpeed = 4
+var addSpeed = 7
 
 var points = 0
 var mainScene
+
+
+func getName() -> String:
+	return "One Ball"
 
 
 func onBallHit(ball, collision) -> void:

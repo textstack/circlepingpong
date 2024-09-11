@@ -1,11 +1,15 @@
 extends BaseGamemode
-class_name NoUpgradesGamemode
+class_name EnduranceGamemode
 
 #configurables
-var speedMult = 1.03
+var speedMult = 1.025
 var pointsToNextBall = 5
 
 var ballPoints = 0
+
+
+func getName() -> String:
+	return "Endurance"
 
 
 func determinePointsNeeded(minus: int = 0) -> int:
