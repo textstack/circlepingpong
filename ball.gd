@@ -18,6 +18,7 @@ var sideSpin = 0
 var collideCount = 0
 var backSpin = Vector2(0, 0)
 var oldSpeed = 0
+var frontSpin = false
 
 
 func _init() -> void:
@@ -35,14 +36,18 @@ func prepareDelete() -> void:
 
 func handleSpin() -> void:
 	var doSpin = randi_range(0, spinChance - collideCount)
-	if doSpin == 0:
+	if frontSpin:
+		frontSpin = false
+		$BallMdl/Spindicator.visible = false
+		backSpin = velocity * 0.66
+	elif doSpin == 0:
 		sideSpin = 1
 	elif doSpin == 1:
 		sideSpin = -1
 	elif doSpin == 2:
 		backSpin = -velocity
 	elif doSpin == 3:
-		backSpin = velocity * 0.66
+		$SpinTimer.start()
 	
 	if sideSpin != 0 or backSpin != Vector2(0, 0):
 		$BallMdl/CurveTrail.emitting = true
@@ -54,6 +59,8 @@ func handleSpin() -> void:
 	else:
 		$BallMdl/CurveTrail.emitting = false
 		$BallMdl/BasicTrail.emitting = true
+
+	collideCount += 1
 
 
 func onCollide(collision) -> void:
@@ -76,7 +83,6 @@ func onCollide(collision) -> void:
 	collide.emit(collision)
 	lastHit = Time.get_unix_time_from_system()
 	velocity = velocity * speedMult
-	collideCount += 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -94,3 +100,8 @@ func _physics_process(_delta: float) -> void:
 
 func _on_delete_timer_timeout() -> void:
 	queue_free()
+
+
+func _on_spin_timer_timeout() -> void:
+	frontSpin = true
+	$BallMdl/Spindicator.visible = true
