@@ -35,8 +35,8 @@ func createBall() -> void:
 
 
 # when the paddle hits a ball
-func onBallHit(collision) -> void:
-	gamemode.onBallHit(collision)
+func onBallHit(ball, collision) -> void:
+	gamemode.onBallHit(ball, collision)
 	showPoints()
 	
 	sparkPaddle(collision)

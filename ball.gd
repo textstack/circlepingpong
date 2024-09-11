@@ -1,10 +1,9 @@
 extends Node2D
 class_name Ball
 
-signal collide(collision)
+signal collide(ball, collision)
 
 #configurables
-var speedMult = 1.03
 var spinChance = 15
 var sideSpinMin = 0.01
 var sideSpinMax = 0.03
@@ -80,9 +79,8 @@ func onCollide(collision) -> void:
 		return
 	
 	handleSpin()
-	collide.emit(collision)
+	collide.emit(self, collision)
 	lastHit = Time.get_unix_time_from_system()
-	velocity = velocity * speedMult
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

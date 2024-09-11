@@ -9,8 +9,9 @@ var points = 0
 var mainScene
 
 
-func onBallHit(collision) -> void:
+func onBallHit(ball, collision) -> void:
 	points += 1
+	ball.velocity = ball.velocity * (getBallSpeed() / ball.velocity.length())
 
 
 func onShowPoints() -> String:

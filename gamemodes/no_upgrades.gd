@@ -2,6 +2,7 @@ extends BaseGamemode
 class_name NoUpgradesGamemode
 
 #configurables
+var speedMult = 1.03
 var pointsToNextBall = 5
 
 var ballPoints = 0
@@ -15,9 +16,10 @@ func determinePointsNeeded(minus: int = 0) -> int:
 	return pointsNeeded
 
 
-func onBallHit(collision) -> void:
-	super(collision)
+func onBallHit(ball, collision) -> void:
+	points += 1
 	ballPoints += 1
+	ball.velocity = ball.velocity * speedMult
 	
 	if ballPoints >= determinePointsNeeded():
 		mainScene.createBall()
