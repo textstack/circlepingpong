@@ -4,20 +4,18 @@ var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$CanvasLayer/pause_menu.hide()
 	gamemode = EnduranceGamemode.new()
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
 	createBall()
 	positioning()
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	resetShift()
-
 
 # spawn a new ball
 func createBall() -> void:
