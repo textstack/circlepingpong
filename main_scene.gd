@@ -1,6 +1,6 @@
 extends Node2D
 
-var ballNode = preload("res://ball.tscn")
+var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
 
