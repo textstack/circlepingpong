@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://i41s1hlvmvf5"]
+[gd_scene load_steps=10 format=3 uid="uid://i41s1hlvmvf5"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_jawee"]
 [ext_resource type="PackedScene" uid="uid://qfubdmubujux" path="res://objects/paddle.tscn" id="1_saa7w"]
 [ext_resource type="PackedScene" uid="uid://2yr4p3g7jejs" path="res://objects/region.tscn" id="2_18ihw"]
 [ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
+[ext_resource type="PackedScene" uid="uid://dn8pg8gfa5hx3" path="res://pause_menu.tscn" id="6_4u45t"]
 
 [sub_resource type="Curve" id="Curve_uocoq"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -60,5 +61,9 @@ offset_right = 150.0
 offset_bottom = 86.0
 theme_override_font_sizes/font_size = 50
 text = "0 (0)"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("6_4u45t")]
 
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
