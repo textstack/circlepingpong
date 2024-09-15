@@ -3,10 +3,14 @@ extends Node2D
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
+@onready var endGameBoo = $EndGameSound
+@onready var gameOverLabel = $"End Game/timerCount"
+@onready var gameOverTimer = $ResetTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$CanvasLayer/pause_menu.hide()
+	$"Pause Menu"/pause_menu.hide()
+	$"End Game"/end_game.hide()
 	gamemode = EnduranceGamemode.new()
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
@@ -83,7 +87,6 @@ func resetShift() -> void:
 	else:
 		shifted = false
 
-
 # reset the entire game
 func reset() -> void:
 	gamemode.onReset()
@@ -95,6 +98,15 @@ func reset() -> void:
 	showPoints()
 	createBall()
 
-
 func _on_ball_timer_timeout() -> void:
+	endGameBoo.play()
+	get_tree().paused = true
+	$"End Game"/end_game.show()
+	$ResetTimer.start()
+	#gameOverLabel.set_text(str(gameOverTimer.get_time_left()))
+	reset()
+	
+func _on_reset_timer_timeout() -> void:
+	$"End Game"/end_game.hide()
+	get_tree().paused = false
 	reset()
