@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://81odji3xf7re"]
+[gd_scene load_steps=7 format=3 uid="uid://81odji3xf7re"]
 
 [ext_resource type="Script" path="res://end screen/end_game.gd" id="1_u5ohy"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_8lrf0"]
@@ -8,8 +8,12 @@
 default_font = ExtResource("2_8lrf0")
 
 [sub_resource type="Theme" id="Theme_7e07x"]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/font_sizes/font_size = 60
 Button/fonts/font = ExtResource("2_8lrf0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x31xh"]
+bg_color = Color(1, 1, 1, 0)
 
 [node name="end_game" type="Control"]
 layout_mode = 3
@@ -27,10 +31,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -533.0
-offset_top = -555.0
-offset_right = 575.0
-offset_bottom = 553.0
+offset_left = -444.0
+offset_top = -507.0
+offset_right = 664.0
+offset_bottom = 601.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.741176)
@@ -80,6 +84,30 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_7e07x")
 text = "Quit to main"
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.35
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -268.0
+offset_top = 204.6
+offset_right = 268.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_x31xh")
+
+[node name="Countdown" type="Label" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("2_8lrf0")
+theme_override_font_sizes/font_size = 40
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
