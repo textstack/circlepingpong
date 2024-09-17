@@ -13,9 +13,11 @@ func _ready() -> void:
 	createBall()
 	positioning()
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	resetShift()
+
 
 # spawn a new ball
 func createBall() -> void:

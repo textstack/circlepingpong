@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://2yr4p3g7jejs" path="res://objects/region.tscn" id="2_18ihw"]
 [ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
-[ext_resource type="PackedScene" uid="uid://dn8pg8gfa5hx3" path="res://pause_menu.tscn" id="6_4u45t"]
+[ext_resource type="PackedScene" path="res://pause_menu.tscn" id="6_4u45t"]
 
 [sub_resource type="Curve" id="Curve_uocoq"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
