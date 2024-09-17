@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://i41s1hlvmvf5"]
+[gd_scene load_steps=13 format=3 uid="uid://i41s1hlvmvf5"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_jawee"]
 [ext_resource type="PackedScene" uid="uid://qfubdmubujux" path="res://objects/paddle.tscn" id="1_saa7w"]
 [ext_resource type="PackedScene" uid="uid://2yr4p3g7jejs" path="res://objects/region.tscn" id="2_18ihw"]
 [ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
-[ext_resource type="PackedScene" path="res://pause_menu.tscn" id="6_4u45t"]
+[ext_resource type="PackedScene" uid="uid://dn8pg8gfa5hx3" path="res://pause_menu.tscn" id="6_4u45t"]
+[ext_resource type="AudioStream" uid="uid://d3vm1qjbd0gvs" path="res://music and sfx/boo.mp3" id="6_sirso"]
+[ext_resource type="PackedScene" uid="uid://81odji3xf7re" path="res://end screen/end_game.tscn" id="7_8s8su"]
+[ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="7_l4sou"]
 
 [sub_resource type="Curve" id="Curve_uocoq"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -50,20 +53,35 @@ explosiveness = 1.0
 
 [node name="Paddle" parent="." instance=ExtResource("1_saa7w")]
 
+[node name="EndGameSound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("6_sirso")
+volume_db = 4.634
+
 [node name="BallTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.022
 one_shot = true
+
+[node name="ResetTimer" type="Timer" parent="."]
+process_mode = 3
 
 [node name="PointDisplay" type="Label" parent="."]
 offset_left = 22.0
 offset_top = 22.0
 offset_right = 150.0
 offset_bottom = 86.0
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("7_l4sou")
+theme_override_font_sizes/font_size = 70
 text = "0 (0)"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Pause Menu" type="CanvasLayer" parent="."]
 
-[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("6_4u45t")]
+[node name="pause_menu" parent="Pause Menu" instance=ExtResource("6_4u45t")]
+
+[node name="End Game" type="CanvasLayer" parent="."]
+
+[node name="end_game" parent="End Game" instance=ExtResource("7_8s8su")]
 
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
