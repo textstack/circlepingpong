@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmcsbn3rtjj7a"]
 
-[ext_resource type="Script" path="res://TitleScreen.gd" id="1_delir"]
-[ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_0u4ua"]
-[ext_resource type="Texture2D" uid="uid://c3pmmr16rafep" path="res://assets/gdm_banner.jpg" id="2_ijmjs"]
-[ext_resource type="Script" path="res://rich_text_label.gd" id="3_03v3i"]
+[ext_resource type="Script" path="res://title_screen.gd" id="1_0tt3j"]
+[ext_resource type="Texture2D" uid="uid://c3pmmr16rafep" path="res://assets/gdm_banner.jpg" id="2_sxuom"]
+[ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="3_ae5ks"]
+[ext_resource type="Script" path="res://rich_text_label.gd" id="4_cv8n6"]
 
 [sub_resource type="Theme" id="Theme_ypn7n"]
 
