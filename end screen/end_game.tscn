@@ -89,11 +89,11 @@ text = "Quit to main"
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.35
+anchor_top = 0.293
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.914
 offset_left = -268.0
-offset_top = 204.6
+offset_top = 324.0
 offset_right = 268.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -107,7 +107,6 @@ theme_override_font_sizes/font_size = 40
 text = "5
 "
 horizontal_alignment = 1
-vertical_alignment = 2
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
