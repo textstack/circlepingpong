@@ -34,6 +34,10 @@ func onReset() -> void:
 	points = 0
 
 
+func onGameOver() -> void:
+	pass
+
+
 func onBallRemoved() -> void:
 	pass
 

@@ -1,5 +1,6 @@
 extends Control
 
+
 # Resume hides the pause screen
 func resume():
 	hide()
