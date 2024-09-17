@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://TitleScreen.gd" id="1_delir"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_0u4ua"]
-[ext_resource type="Texture2D" uid="uid://c3pmmr16rafep" path="res://title screen/gdm_banner.jpg" id="2_ijmjs"]
+[ext_resource type="Texture2D" uid="uid://c3pmmr16rafep" path="res://assets/gdm_banner.jpg" id="2_ijmjs"]
 [ext_resource type="Script" path="res://rich_text_label.gd" id="3_03v3i"]
 
 [sub_resource type="Theme" id="Theme_ypn7n"]

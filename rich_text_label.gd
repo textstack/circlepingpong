@@ -7,7 +7,3 @@ func _ready() -> void:
 SHOWDOWN[/center][/wave]"
 	
 	self.add_theme_font_size_override("normal_font_size", 150)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

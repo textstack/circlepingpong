@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://81odji3xf7re"]
 
-[ext_resource type="Script" path="res://end screen/end_game.gd" id="1_u5ohy"]
+[ext_resource type="Script" path="res://endscreen/end_game.gd" id="1_u5ohy"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_8lrf0"]
-[ext_resource type="Script" path="res://end screen/game_over.gd" id="2_dgpys"]
+[ext_resource type="Script" path="res://endscreen/game_over.gd" id="2_dgpys"]
 
 [sub_resource type="Theme" id="Theme_3wf6y"]
 default_font = ExtResource("2_8lrf0")
@@ -25,6 +25,7 @@ grow_vertical = 2
 script = ExtResource("1_u5ohy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -64,7 +65,7 @@ anchor_bottom = 0.5
 offset_left = -200.0
 offset_top = -31.0
 offset_right = 206.0
-offset_bottom = 196.0
+offset_bottom = 69.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -73,6 +74,7 @@ layout_mode = 2
 
 [node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
 process_mode = 3
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_7e07x")
@@ -91,7 +93,7 @@ anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.293
 anchor_right = 0.5
-anchor_bottom = 0.914
+anchor_bottom = 0.839
 offset_left = -268.0
 offset_top = 324.0
 offset_right = 268.0
