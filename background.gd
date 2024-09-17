@@ -3,10 +3,6 @@ extends Node2D
 var velocity = Vector2(0, 0)
 var lerpRotation = 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -23,6 +19,7 @@ func updateBG() -> void:
 		
 	lerpRotation -= sideSpin * 0.1
 	velocity = (velocity * 12 + vel) / 13
+
 
 var pos = Vector2(-10000, -10000)
 func setBG(delta: float) -> void:

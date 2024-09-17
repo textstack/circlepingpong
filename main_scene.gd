@@ -8,6 +8,7 @@ var gamemode
 @onready var gameOverTimer = $ResetTimer
 @onready var countdown_time = 10
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$"Pause Menu"/pause_menu.hide()
@@ -18,9 +19,11 @@ func _ready() -> void:
 	createBall()
 	positioning()
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	resetShift()
+
 
 # Spawns a new ball
 func createBall() -> void:
@@ -52,6 +55,7 @@ func onRemoveBall() -> void:
 
 	if ballsInGame <= 0:
 		$BallTimer.start()
+
 
 # Display points in the top left
 func showPoints() -> void:
@@ -86,6 +90,7 @@ func resetShift() -> void:
 	else:
 		shifted = false
 
+
 # Reset the entire game
 func reset() -> void:
 	gamemode.onReset()
@@ -97,6 +102,7 @@ func reset() -> void:
 	$Background.lerpRotation = 0
 	showPoints()
 	createBall()
+
 
 # When the game is over, show the end game screen and start the countdown
 func _on_ball_timer_timeout() -> void:
