@@ -3,11 +3,15 @@ extends Node2D
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
-var highscore = High_score.new()
+@onready var endGameBoo = $EndGameSound
+@onready var gameOverLabel = $"End Game/end_game/PanelContainer2/Countdown"
+@onready var gameOverTimer = $ResetTimer
+@onready var countdown_time = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$CanvasLayer/pause_menu.hide()
+	$"Pause Menu"/pause_menu.hide()
+	$"End Game"/end_game.hide()
 	gamemode = EnduranceGamemode.new()
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
@@ -18,7 +22,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	resetShift()
 
-# spawn a new ball
+# Spawns a new ball
 func createBall() -> void:
 	ballsInGame += 1
 	gamemode.onCreateBall()
@@ -33,15 +37,14 @@ func createBall() -> void:
 	add_child(inst)
 
 
-# when the paddle hits a ball
+# When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
 	gamemode.onBallHit(ball, collision)
 	showPoints()
-	
 	sparkPaddle(collision)
 
 
-# when a ball goes out of bounds
+# When a ball goes out of bounds, remove ball
 func onRemoveBall() -> void:
 	ballsInGame -= 1
 	gamemode.onBallRemoved()
@@ -50,20 +53,19 @@ func onRemoveBall() -> void:
 	if ballsInGame <= 0:
 		$BallTimer.start()
 
-
-# display points in the top left
+# Display points in the top left
 func showPoints() -> void:
 	$PointDisplay.text = gamemode.onShowPoints()
 
 
-# positioning the black inner circle
+# Positioning the black inner circle
 func positioning() -> void:
 	var size = Screen.getCircleRadius() / 60
 	$Region.scale = Vector2(size, size)
 	$Region.position = get_viewport_rect().size / 2
 
 
-# paddle hit effect
+# Paddle hit effect
 func sparkPaddle(collision) -> void:
 	position = position - collision.get_normal() * 3
 	$PaddleSpark.rotation = $Paddle/PaddleMdl.rotation
@@ -71,7 +73,7 @@ func sparkPaddle(collision) -> void:
 	$PaddleSpark.emitting = true
 
 
-# reset the 3 pixel shift when the paddle hits a ball
+# Reset the 3 pixel shift when the paddle hits a ball
 var originalPos = position
 var shifted = false
 func resetShift() -> void:
@@ -84,11 +86,11 @@ func resetShift() -> void:
 	else:
 		shifted = false
 
-
-# reset the entire game
+# Reset the entire game
 func reset() -> void:
 	gamemode.onReset()
 	
+	# Reset points and balls
 	for b in get_tree().get_nodes_in_group("balls"):
 		b.queue_free()
 	ballsInGame = 0
@@ -96,6 +98,32 @@ func reset() -> void:
 	showPoints()
 	createBall()
 
+func check_or_replace_highscore(score : int) -> void:
+	if High.highscore < score:
+		High.highscore = score
+		pass
 
+# When the game is over, show the end game screen and start the countdown
 func _on_ball_timer_timeout() -> void:
-	reset()
+	check_or_replace_highscore(gamemode.getPoints())
+	endGameBoo.play()
+	get_tree().paused = true
+	$"End Game"/end_game.show()
+	$"End Game"/end_game/ScoreContainer/HBoxContainer/ScoreTracker.text = str(High.highscore)
+	print(str(High.highscore))
+	gameOverLabel.text = "RESTART IN ( %d )" % countdown_time  # Set countdown start value
+	$ResetTimer.start()
+
+# Update countdown every second
+func _on_reset_timer_timeout() -> void:
+	
+	# If countdown has not run out, continue to update the second
+	if countdown_time > 1:
+		countdown_time -= 1
+		gameOverLabel.text = "RESTART IN ( %d )" % countdown_time
+		
+	# If the countdown has run out, reset the game
+	else:
+		$"End Game"/end_game.hide()
+		get_tree().paused = false
+		get_tree().reload_current_scene()
