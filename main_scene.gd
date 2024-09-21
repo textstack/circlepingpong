@@ -109,8 +109,7 @@ func _on_ball_timer_timeout() -> void:
 	endGameBoo.play()
 	get_tree().paused = true
 	$"End Game"/end_game.show()
-	$"End Game"/end_game/ScoreContainer/HBoxContainer/ScoreTracker.text = str(High.highscore)
-	print(str(High.highscore))
+	$"End Game"/end_game/ScoreContainer/Score.text = "Highscore: " + str(High.highscore)
 	gameOverLabel.text = "RESTART IN ( %d )" % countdown_time  # Set countdown start value
 	$ResetTimer.start()
 
