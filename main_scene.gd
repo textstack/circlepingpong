@@ -1,8 +1,11 @@
 extends Node2D
 
+var immuneNode = load("res://upgrades/immunity.tscn")
+var immuneSpawn
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
-var gamemode
+var ang = randf_range(-PI, PI)
+@onready var gamemode 
 @onready var endGameBoo = $EndGameSound
 @onready var gameOverLabel = $"End Game/end_game/PanelContainer2/Countdown"
 @onready var gameOverTimer = $ResetTimer
@@ -10,9 +13,21 @@ var gamemode
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	#immuneSpawn = $Path2D/PathFollow2D
+	
+	$SpawnTimer.start()
 	$"Pause Menu"/pause_menu.hide()
 	$"End Game"/end_game.hide()
-	gamemode = EnduranceGamemode.new()
+	$"Game Mode"/game_mode.hide()
+	
+	# Gamemode 
+	var selected_mode = ModeAuto.getMode()
+	if (selected_mode == 0):
+		gamemode = BaseGamemode.new()
+	if (selected_mode == 1):
+		gamemode = EnduranceGamemode.new()
+	
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
 	createBall()
@@ -29,20 +44,23 @@ func createBall() -> void:
 	showPoints()
 	
 	var speed = gamemode.getBallSpeed()
-	var ang = randf_range(-PI, PI)
 	var inst = ballNode.instantiate()
 	inst.position = get_viewport_rect().size / 2
 	inst.velocity = Vector2(cos(ang) * speed, sin(ang) * speed)
 	inst.collide.connect(onBallHit)
 	add_child(inst)
 
-
+# Spawns immunity powerup
+func createImmune() -> void:
+	immuneSpawn = immuneNode.instantiate()
+	immuneSpawn.position = get_viewport_rect().size / 2
+	add_child(immuneSpawn)
+	
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
 	gamemode.onBallHit(ball, collision)
 	showPoints()
 	sparkPaddle(collision)
-
 
 # When a ball goes out of bounds, remove ball
 func onRemoveBall() -> void:
@@ -119,3 +137,6 @@ func _on_reset_timer_timeout() -> void:
 		$"End Game"/end_game.hide()
 		get_tree().paused = false
 		get_tree().reload_current_scene()
+		
+func _on_spawn_timer_timeout() -> void:
+	createImmune()

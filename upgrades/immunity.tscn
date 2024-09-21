@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://dokmjwl7rxv4k"]
+
+[ext_resource type="Texture2D" uid="uid://wq2cei1ub5vq" path="res://art/power_ups/immunity.png" id="1_q02j3"]
+[ext_resource type="Script" path="res://upgrades/immunity.gd" id="1_txi7o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b77f0"]
+size = Vector2(19, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b7g3"]
+atlas = ExtResource("1_q02j3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnhar"]
+atlas = ExtResource("1_q02j3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r8fx"]
+atlas = ExtResource("1_q02j3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5d3u"]
+atlas = ExtResource("1_q02j3")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vmct"]
+atlas = ExtResource("1_q02j3")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vja8o"]
+atlas = ExtResource("1_q02j3")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jihe3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b7g3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnhar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r8fx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5d3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vmct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vja8o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Immunity" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_txi7o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -1)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_b77f0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_jihe3")
+frame_progress = 0.128957

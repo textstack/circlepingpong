@@ -15,6 +15,10 @@ run/main_scene="res://TitleScreen.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
+[autoload]
+
+ModeAuto="*res://gamemodes/mode_auto.gd"
+
 [display]
 
 window/size/viewport_width=600
@@ -30,6 +34,8 @@ version_control/autoload_on_startup=true
 [global_group]
 
 balls="all balls"
+paddle=""
+boundary=""
 
 [input]
 
