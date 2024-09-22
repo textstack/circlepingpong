@@ -120,7 +120,7 @@ func gameOver():
 	check_or_replace_highscore(gamemode.getPoints())
 	gamemode.onGameOver()
 	$EndGame/end_game.show()
-	$EndGame/end_game/ScoreContainer/Score.text = "Highscore: " + str(High.highscore)
+	$EndGame/end_game/ScoreContainer/Score.text = "HIGH SCORE: " + str(High.highscore)
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()

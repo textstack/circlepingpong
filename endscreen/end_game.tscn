@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://81odji3xf7re"]
+[gd_scene load_steps=9 format=3 uid="uid://81odji3xf7re"]
 
 [ext_resource type="Script" path="res://endscreen/end_game.gd" id="1_u5ohy"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_8lrf0"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="Theme" id="Theme_3wf6y"]
 default_font = ExtResource("2_8lrf0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbp26"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="Theme" id="Theme_2s0n3"]
 default_font = ExtResource("2_8lrf0")
@@ -46,13 +49,16 @@ color = Color(0, 0, 0, 0.741176)
 
 [node name="GameOver" type="RichTextLabel" parent="."]
 process_mode = 3
-layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 0.585
-offset_left = -139.0
-offset_top = -4.0
-offset_right = 205.0
-offset_bottom = -96.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -489.0
+offset_top = -376.0
+offset_right = 489.0
+offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_3wf6y")
@@ -68,8 +74,10 @@ anchor_right = 0.829
 anchor_bottom = 0.364
 offset_right = 1.0
 offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qbp26")
 
 [node name="ColorRect" type="ColorRect" parent="ScoreContainer"]
+visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
@@ -78,7 +86,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_2s0n3")
 bbcode_enabled = true
-text = "[center]HIGHSCORE: [/center]
+text = "[center]HIGH SCORE: [/center]
 "
 scroll_active = false
 
