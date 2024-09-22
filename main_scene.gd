@@ -98,11 +98,18 @@ func reset() -> void:
 	showPoints()
 	createBall()
 
+func check_or_replace_highscore(score : int) -> void:
+	if High.highscore < score:
+		High.highscore = score
+		pass
+
 # When the game is over, show the end game screen and start the countdown
 func _on_ball_timer_timeout() -> void:
+	check_or_replace_highscore(gamemode.getPoints())
 	endGameBoo.play()
 	get_tree().paused = true
 	$"End Game"/end_game.show()
+	$"End Game"/end_game/ScoreContainer/Score.text = "Highscore: " + str(High.highscore)
 	gameOverLabel.text = "RESTART IN ( %d )" % countdown_time  # Set countdown start value
 	$ResetTimer.start()
 
