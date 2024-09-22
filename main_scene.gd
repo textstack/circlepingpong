@@ -117,8 +117,10 @@ func reset() -> void:
 # Called when the game has ended
 func gameOver():
 	endGameBoo.play()
+	check_or_replace_highscore(gamemode.getPoints())
 	gamemode.onGameOver()
 	$EndGame/end_game.show()
+	$EndGame/end_game/ScoreContainer/Score.text = "Highscore: " + str(High.highscore)
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
@@ -128,6 +130,10 @@ func gameOver():
 	tween.tween_property($EndGame/end_game, "modulate", Color.WHITE, 0.5)
 	tween.tween_callback($EndGame/end_game/PanelContainer.show)
 
+
+func check_or_replace_highscore(score : int) -> void:
+	if High.highscore < score:
+		High.highscore = score
 
 
 # When the game is over, show the end game screen and start the countdown

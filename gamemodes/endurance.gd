@@ -37,7 +37,6 @@ func onShowPoints() -> String:
 	var pointsLeft = determinePointsNeeded() - ballPoints
 	return str(points, " (", pointsLeft, ")")
 
-
 func onReset() -> void:
 	super()
 	ballPoints = 0

@@ -15,6 +15,10 @@ run/main_scene="res://title_screen.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
+[autoload]
+
+High="*res://high_score.gd"
+
 [display]
 
 window/size/viewport_width=600
