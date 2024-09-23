@@ -5,15 +5,12 @@ var immuneSpawn
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var ang = randf_range(-PI, PI)
-var gamemode
 var countdownTime = 6
 
-@onready var gamemode 
+var gamemode 
 @onready var endGameBoo = $EndGameSound
 @onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
 @onready var gameOverTimer = $ResetTimer
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,7 +25,7 @@ func _ready() -> void:
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
-	gamemode = EnduranceGamemode.new()
+	#gamemode = EnduranceGamemode.new()
 
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)

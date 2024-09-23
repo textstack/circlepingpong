@@ -18,4 +18,4 @@ func _on_restart_pressed() -> void:
 # Function for quit button
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://TitleScreen.tscn")
+	get_tree().change_scene_to_file("res://title_screen.tscn")
