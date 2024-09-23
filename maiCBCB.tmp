@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://i41s1hlvmvf5"]
+[gd_scene load_steps=13 format=3 uid="uid://i41s1hlvmvf5"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_jawee"]
 [ext_resource type="PackedScene" uid="uid://qfubdmubujux" path="res://objects/paddle.tscn" id="1_saa7w"]
@@ -6,16 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
 [ext_resource type="PackedScene" uid="uid://dn8pg8gfa5hx3" path="res://pause_menu.tscn" id="6_4u45t"]
-[ext_resource type="AudioStream" uid="uid://d3vm1qjbd0gvs" path="res://sounds/boo.mp3" id="6_sirso"]
-[ext_resource type="PackedScene" uid="uid://81odji3xf7re" path="res://endscreen/end_game.tscn" id="7_8s8su"]
+[ext_resource type="AudioStream" uid="uid://d3vm1qjbd0gvs" path="res://music and sfx/boo.mp3" id="6_sirso"]
+[ext_resource type="PackedScene" uid="uid://81odji3xf7re" path="res://end screen/end_game.tscn" id="7_8s8su"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="7_l4sou"]
-[ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemodes/game_mode.tscn" id="10_n7e1q"]
-
-[sub_resource type="Curve2D" id="Curve2D_vlxg0"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, -65, 0, 0, 0, 0, 17, -63, 0, 0, 0, 0, 32, -56, 0, 0, 0, 0, 46, -46, 0, 0, 0, 0, 56, -32, 0, 0, 0, 0, 63, -17, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 63, 17, 0, 0, 0, 0, 56, 33, 0, 0, 0, 0, 46, 46, 0, 0, 0, 0, 32, 56, 0, 0, 0, 0, 17, 63, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, -17, 63, 0, 0, 0, 0, -33, 56, 0, 0, 0, 0, -46, 46, 0, 0, 0, 0, -57, 32, 0, 0, 0, 0, -63, 16, 0, 0, 0, 0, -65, 0, 0, 0, 0, 0, -63, -17, 0, 0, 0, 0, -57, -33, 0, 0, 0, 0, -46, -46, 0, 0, 0, 0, -33, -57, 0, 0, 0, 0, -17, -63, 0, 0, 0, 0, 0, -65)
-}
-point_count = 25
 
 [sub_resource type="Curve" id="Curve_uocoq"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -41,22 +34,12 @@ scale_min = 0.2
 scale_max = 0.2
 scale_curve = SubResource("CurveTexture_47kfs")
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_n36es"]
-b = Vector2(18, 2)
-
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_jawee")
 
 [node name="Background" parent="." instance=ExtResource("2_enxwp")]
 
 [node name="Region" parent="." instance=ExtResource("2_18ihw")]
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_vlxg0")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(0, -65)
-rotation = 0.117109
 
 [node name="PaddleSpark" type="GPUParticles2D" parent="."]
 position = Vector2(0, -10)
@@ -76,13 +59,11 @@ stream = ExtResource("6_sirso")
 volume_db = 4.634
 
 [node name="BallTimer" type="Timer" parent="."]
+wait_time = 2.022
 one_shot = true
 
 [node name="ResetTimer" type="Timer" parent="."]
 process_mode = 3
-
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
 
 [node name="PointDisplay" type="Label" parent="."]
 offset_left = 22.0
@@ -94,24 +75,13 @@ theme_override_fonts/font = ExtResource("7_l4sou")
 theme_override_font_sizes/font_size = 70
 text = "0 (0)"
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
+[node name="Pause Menu" type="CanvasLayer" parent="."]
 
-[node name="pause_menu" parent="PauseMenu" instance=ExtResource("6_4u45t")]
+[node name="pause_menu" parent="Pause Menu" instance=ExtResource("6_4u45t")]
 
-[node name="EndGame" type="CanvasLayer" parent="."]
+[node name="End Game" type="CanvasLayer" parent="."]
 
-[node name="end_game" parent="EndGame" instance=ExtResource("7_8s8su")]
-
-[node name="Game Mode" type="CanvasLayer" parent="."]
-
-[node name="game_mode" parent="Game Mode" instance=ExtResource("10_n7e1q")]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -66)
-shape = SubResource("SegmentShape2D_n36es")
+[node name="end_game" parent="End Game" instance=ExtResource("7_8s8su")]
 
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
 [connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

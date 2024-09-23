@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="circlepingpong"
-run/main_scene="res://TitleScreen.tscn"
+run/main_scene="res://title_screen.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
 [autoload]
 
 ModeAuto="*res://gamemodes/mode_auto.gd"
+High="*res://high_score.gd"
 
 [display]
 
