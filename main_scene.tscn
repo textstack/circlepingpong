@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
 [ext_resource type="PackedScene" uid="uid://dn8pg8gfa5hx3" path="res://pause_menu.tscn" id="6_4u45t"]
-[ext_resource type="AudioStream" uid="uid://dfhy6pom7t2ui" path="res://sounds/pong2.mp3" id="7_0c64s"]
 [ext_resource type="AudioStream" uid="uid://d3vm1qjbd0gvs" path="res://sounds/boo.mp3" id="6_sirso"]
 [ext_resource type="PackedScene" uid="uid://81odji3xf7re" path="res://endscreen/end_game.tscn" id="7_8s8su"]
 [ext_resource type="AudioStream" uid="uid://d1nwh62re0cfy" path="res://sounds/pong1.mp3" id="7_ekk0n"]
