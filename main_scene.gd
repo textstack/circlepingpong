@@ -4,6 +4,7 @@ var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
 @onready var endGameBoo = $EndGameSound
+@onready var paddleHit = $PaddleHitSound
 @onready var gameOverLabel = $"End Game/end_game/PanelContainer2/Countdown"
 @onready var gameOverTimer = $ResetTimer
 @onready var countdown_time = 10
@@ -39,6 +40,7 @@ func createBall() -> void:
 
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
+	paddleHit.play()
 	gamemode.onBallHit(ball, collision)
 	showPoints()
 	sparkPaddle(collision)

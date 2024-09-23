@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cbts5joybh6a6"
+path="res://.godot/imported/pong5.mp3-61aa4d73e8c7c49eb235c904956e7912.mp3str"
+
+[deps]
+
+source_file="res://music and sfx/pong5.mp3"
+dest_files=["res://.godot/imported/pong5.mp3-61aa4d73e8c7c49eb235c904956e7912.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

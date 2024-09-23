@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djsssyhe0g3vn"
+path="res://.godot/imported/pong3.mp3-79073911c85d24930058cf4f49550ead.mp3str"
+
+[deps]
+
+source_file="res://music and sfx/pong3.mp3"
+dest_files=["res://.godot/imported/pong3.mp3-79073911c85d24930058cf4f49550ead.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
