@@ -51,10 +51,10 @@ func createBall() -> void:
 	add_child(inst)
 
 # Spawns immunity powerup
-func createImmune() -> void:
-	immuneSpawn = immuneNode.instantiate()
-	immuneSpawn.position = get_viewport_rect().size / 2
-	add_child(immuneSpawn)
+#func createImmune() -> void:
+	#immuneSpawn = immuneNode.instantiate()
+	#immuneSpawn.position = get_viewport_rect().size / 2
+	#add_child(immuneSpawn)
 	
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
@@ -138,5 +138,5 @@ func _on_reset_timer_timeout() -> void:
 		get_tree().paused = false
 		get_tree().reload_current_scene()
 		
-func _on_spawn_timer_timeout() -> void:
-	createImmune()
+#func _on_spawn_timer_timeout() -> void:
+	#createImmune()
