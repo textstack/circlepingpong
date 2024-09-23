@@ -3,24 +3,28 @@ extends Node2D
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var gamemode
+var countdownTime = 6
 @onready var endGameBoo = $EndGameSound
-@onready var gameOverLabel = $"End Game/end_game/PanelContainer2/Countdown"
+@onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
 @onready var gameOverTimer = $ResetTimer
-@onready var countdown_time = 10
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"Pause Menu"/pause_menu.hide()
-	$"End Game"/end_game.hide()
+	$PauseMenu/pause_menu.hide()
+	$EndGame/end_game.hide()
 	gamemode = EnduranceGamemode.new()
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
 	createBall()
 	positioning()
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	resetShift()
+
 
 # Spawns a new ball
 func createBall() -> void:
@@ -51,7 +55,9 @@ func onRemoveBall() -> void:
 	showPoints()
 
 	if ballsInGame <= 0:
-		$BallTimer.start()
+		gameOver()
+
+
 
 # Display points in the top left
 func showPoints() -> void:
@@ -86,6 +92,7 @@ func resetShift() -> void:
 	else:
 		shifted = false
 
+
 # Reset the entire game
 func reset() -> void:
 	gamemode.onReset()
@@ -94,35 +101,50 @@ func reset() -> void:
 	for b in get_tree().get_nodes_in_group("balls"):
 		b.queue_free()
 	ballsInGame = 0
+	countdownTime = 6
 	$Background.lerpRotation = 0
+	$ResetTimer.stop()
 	showPoints()
 	createBall()
+	
+	if $EndGame/end_game.visible:
+		$EndGame/end_game/PanelContainer.hide()
+		var tween = get_tree().create_tween()
+		tween.tween_property($EndGame/end_game, "modulate", Color(255, 255, 255, 0), 0.5)
+		tween.tween_callback($EndGame/end_game.hide)
+
+
+# Called when the game has ended
+func gameOver():
+	endGameBoo.play()
+	check_or_replace_highscore(gamemode.getPoints())
+	gamemode.onGameOver()
+	$EndGame/end_game.show()
+	$EndGame/end_game/ScoreContainer/Score.text = "HIGH SCORE: " + str(High.highscore)
+	$BallTimer.start()
+	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
+	$ResetTimer.start()
+	
+	$EndGame/end_game.modulate.a = 0
+	var tween = get_tree().create_tween()
+	tween.tween_property($EndGame/end_game, "modulate", Color.WHITE, 0.5)
+	tween.tween_callback($EndGame/end_game/PanelContainer.show)
+
 
 func check_or_replace_highscore(score : int) -> void:
 	if High.highscore < score:
 		High.highscore = score
-		pass
+
 
 # When the game is over, show the end game screen and start the countdown
 func _on_ball_timer_timeout() -> void:
-	check_or_replace_highscore(gamemode.getPoints())
-	endGameBoo.play()
-	get_tree().paused = true
-	$"End Game"/end_game.show()
-	$"End Game"/end_game/ScoreContainer/Score.text = "Highscore: " + str(High.highscore)
-	gameOverLabel.text = "RESTART IN ( %d )" % countdown_time  # Set countdown start value
-	$ResetTimer.start()
+	pass
+
 
 # Update countdown every second
 func _on_reset_timer_timeout() -> void:
-	
-	# If countdown has not run out, continue to update the second
-	if countdown_time > 1:
-		countdown_time -= 1
-		gameOverLabel.text = "RESTART IN ( %d )" % countdown_time
-		
-	# If the countdown has run out, reset the game
+	if countdownTime > 1:
+		countdownTime -= 1
+		gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	else:
-		$"End Game"/end_game.hide()
-		get_tree().paused = false
-		get_tree().reload_current_scene()
+		reset()
