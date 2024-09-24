@@ -9,6 +9,7 @@ var countdownTime = 6
 
 var gamemode 
 @onready var endGameBoo = $EndGameSound
+@onready var paddleHit = $PaddleHitSound
 @onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
 @onready var gameOverTimer = $ResetTimer
 
@@ -58,6 +59,7 @@ func createBall() -> void:
 	
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
+	paddleHit.play()
 	gamemode.onBallHit(ball, collision)
 	showPoints()
 	sparkPaddle(collision)
