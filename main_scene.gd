@@ -37,7 +37,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	resetShift()
 
-
 # Spawns a new ball
 func createBall() -> void:
 	ballsInGame += 1
@@ -51,7 +50,7 @@ func createBall() -> void:
 	inst.collide.connect(onBallHit)
 	add_child(inst)
 
-# Spawns immunity powerup
+## Spawns immunity powerup
 #func createImmune() -> void:
 	#immuneSpawn = immuneNode.instantiate()
 	#immuneSpawn.position = get_viewport_rect().size / 2
@@ -139,6 +138,7 @@ func gameOver():
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
+	$SpawnTimer.paused = true
 	
 	$EndGame/end_game.modulate.a = 0
 	var tween = get_tree().create_tween()
