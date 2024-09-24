@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://2yr4p3g7jejs"]
+[gd_scene load_steps=7 format=3 uid="uid://2yr4p3g7jejs"]
 
 [ext_resource type="Script" path="res://objects/region.gd" id="1_pkqnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hlje6"]
 radius = 65.0
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_fcyoi"]
+b = Vector2(0, 141)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_kkeau"]
+a = Vector2(90, 15)
+b = Vector2(-10, 14)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_jrf7m"]
+a = Vector2(-37, 13)
+b = Vector2(46, 18)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_8n737"]
+a = Vector2(13, -3)
+b = Vector2(7, 118)
+
 [node name="Region" type="Node2D"]
 script = ExtResource("1_pkqnx")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+[node name="Area2D" type="Area2D" parent="." groups=["boundary"]]
+collision_layer = 8
+collision_mask = 7
 
 [node name="Polygon2D" type="Polygon2D" parent="Area2D"]
 color = Color(0, 0, 0, 1)
@@ -18,5 +33,37 @@ polygon = PackedVector2Array(0, -60, 15, -58, 30, -52, 42, -42, 52, -30, 58, -15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_hlje6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["boundary"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(44, -67)
+shape = SubResource("SegmentShape2D_fcyoi")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=["boundary"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-44, 37)
+shape = SubResource("SegmentShape2D_kkeau")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["boundary"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(-3, -68)
+shape = SubResource("SegmentShape2D_jrf7m")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." groups=["boundary"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(-50, -66)
+shape = SubResource("SegmentShape2D_8n737")
 
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

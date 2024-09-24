@@ -11,10 +11,11 @@ size = Vector2(80, 2)
 [node name="Paddle" type="Node2D"]
 script = ExtResource("1_48h7q")
 
-[node name="PaddleMdl" type="AnimatableBody2D" parent="."]
+[node name="PaddleMdl" type="AnimatableBody2D" parent="." groups=["paddle"]]
+collision_mask = 6
 sync_to_physics = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleMdl"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PaddleMdl" groups=["paddle"]]
 shape = SubResource("RectangleShape2D_joshg")
 one_way_collision = true
 

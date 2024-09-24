@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+ModeAuto="*res://gamemodes/mode_auto.gd"
 High="*res://high_score.gd"
 
 [display]
@@ -34,6 +35,8 @@ version_control/autoload_on_startup=true
 [global_group]
 
 balls="all balls"
+paddle=""
+boundary=""
 
 [input]
 

@@ -7,7 +7,6 @@ var pointsToNextBall = 5
 
 var ballPoints = 0
 
-
 func _init() -> void:
 	addSpeed = 4
 

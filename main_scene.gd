@@ -1,20 +1,32 @@
 extends Node2D
 
+var immuneNode = load("res://upgrades/immunity.tscn")
+var immuneSpawn
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
-var gamemode
+var ang = randf_range(-PI, PI)
 var countdownTime = 6
+
+var gamemode 
 @onready var endGameBoo = $EndGameSound
 @onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
 @onready var gameOverTimer = $ResetTimer
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Gamemode 
+	var selected_mode = ModeAuto.getMode()
+	if (selected_mode == 0):
+		gamemode = BaseGamemode.new()
+	if (selected_mode == 1):
+		gamemode = EnduranceGamemode.new()
+
+	$SpawnTimer.start()
+	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
-	gamemode = EnduranceGamemode.new()
+	#gamemode = EnduranceGamemode.new()
+
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
 	createBall()
@@ -25,7 +37,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	resetShift()
 
-
 # Spawns a new ball
 func createBall() -> void:
 	ballsInGame += 1
@@ -33,20 +44,23 @@ func createBall() -> void:
 	showPoints()
 	
 	var speed = gamemode.getBallSpeed()
-	var ang = randf_range(-PI, PI)
 	var inst = ballNode.instantiate()
 	inst.position = get_viewport_rect().size / 2
 	inst.velocity = Vector2(cos(ang) * speed, sin(ang) * speed)
 	inst.collide.connect(onBallHit)
 	add_child(inst)
 
-
+## Spawns immunity powerup
+#func createImmune() -> void:
+	#immuneSpawn = immuneNode.instantiate()
+	#immuneSpawn.position = get_viewport_rect().size / 2
+	#add_child(immuneSpawn)
+	
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
 	gamemode.onBallHit(ball, collision)
 	showPoints()
 	sparkPaddle(collision)
-
 
 # When a ball goes out of bounds, remove ball
 func onRemoveBall() -> void:
@@ -124,6 +138,7 @@ func gameOver():
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
+	$SpawnTimer.paused = true
 	
 	$EndGame/end_game.modulate.a = 0
 	var tween = get_tree().create_tween()
@@ -140,7 +155,6 @@ func check_or_replace_highscore(score : int) -> void:
 func _on_ball_timer_timeout() -> void:
 	pass
 
-
 # Update countdown every second
 func _on_reset_timer_timeout() -> void:
 	if countdownTime > 1:
@@ -148,3 +162,6 @@ func _on_reset_timer_timeout() -> void:
 		gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	else:
 		reset()
+		
+#func _on_spawn_timer_timeout() -> void:
+	#createImmune()
