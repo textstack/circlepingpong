@@ -5,6 +5,7 @@ extends Control
 # when the end screen shows
 
 func _ready() -> void:
+	$"../../SpawnTimer".paused
 	var _size = Screen.getCircleRadius() / 600
 	self.scale = Vector2(_size, _size)
 	

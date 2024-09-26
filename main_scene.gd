@@ -6,12 +6,15 @@ var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var ang = randf_range(-PI, PI)
 var countdownTime = 6
-
 var gamemode 
+var disable_input: bool = false
+
 @onready var endGameBoo = $EndGameSound
 @onready var paddleHit = $PaddleHitSound
 @onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
 @onready var gameOverTimer = $ResetTimer
+
+@export var immunity: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,8 +24,8 @@ func _ready() -> void:
 		gamemode = BaseGamemode.new()
 	if (selected_mode == 1):
 		gamemode = EnduranceGamemode.new()
+		$SpawnTimer.start()
 
-	$SpawnTimer.start()
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
@@ -51,7 +54,15 @@ func createBall() -> void:
 	inst.collide.connect(onBallHit)
 	add_child(inst)
 
-## Spawns immunity powerup
+# Counts powerup in the scene
+func power_up_count() -> int:
+	var count = 0
+	for child in get_tree().root.get_children():
+		if child is power_up:
+			count += 1
+	return count
+		
+# Spawns immunity powerup
 #func createImmune() -> void:
 	#immuneSpawn = immuneNode.instantiate()
 	#immuneSpawn.position = get_viewport_rect().size / 2
@@ -129,9 +140,9 @@ func reset() -> void:
 		tween.tween_property($EndGame/end_game, "modulate", Color(255, 255, 255, 0), 0.5)
 		tween.tween_callback($EndGame/end_game.hide)
 
-
 # Called when the game has ended
 func gameOver():
+	disable_input = true
 	endGameBoo.play()
 	check_or_replace_highscore(gamemode.getPoints())
 	gamemode.onGameOver()
@@ -142,11 +153,21 @@ func gameOver():
 	$ResetTimer.start()
 	$SpawnTimer.paused = true
 	
+	# Get rid of powerups in scene
+	for child in get_tree().root.get_children():
+		if child is power_up:
+			child.queue_free()
+	
 	$EndGame/end_game.modulate.a = 0
 	var tween = get_tree().create_tween()
 	tween.tween_property($EndGame/end_game, "modulate", Color.WHITE, 0.5)
 	tween.tween_callback($EndGame/end_game/PanelContainer.show)
 
+func _input(event: InputEvent) -> void:
+	if disable_input:
+		# Ignore specific input when the game is over
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			return 
 
 func check_or_replace_highscore(score : int) -> void:
 	if High.highscore < score:
@@ -165,5 +186,13 @@ func _on_reset_timer_timeout() -> void:
 	else:
 		reset()
 		
-#func _on_spawn_timer_timeout() -> void:
-	#createImmune()
+func _on_spawn_timer_timeout() -> void:
+	if power_up_count() < 2:
+		immuneSpawn = immuneNode.instantiate()
+		get_tree().root.add_child(immuneSpawn)
+		immuneSpawn.position = get_viewport_rect().size / 2
+	else:
+		pass
+	
+		
+	
