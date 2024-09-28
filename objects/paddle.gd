@@ -6,6 +6,8 @@ var isGlow: bool = false
 
 # Reference to the WorldEnvironment node
 @onready var world_env = $"WorldEnvironment"  # Adjust the path if needed
+@onready var glow_timer = $GlowTimer
+@onready var power_up_sound = $Power_Up_Sound
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -35,3 +37,14 @@ func enable_world_glow(enable: bool) -> void:
 			world_env.environment.glow_enabled = true  # Set to your desired intensity
 		else:
 			world_env.environment.glow_enabled = false  # Disable the glow
+
+# Function to set the timer on the glow for the paddle
+func activate_glow() -> void:
+	power_up_sound.play()
+	isGlow = true
+	enable_world_glow(isGlow)
+	glow_timer.start()  # Start the timer with the given duration  # Debug print
+
+func _on_glow_timer_timeout() -> void:
+	isGlow = false
+	enable_world_glow(isGlow)

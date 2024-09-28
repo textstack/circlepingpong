@@ -1,13 +1,14 @@
 extends Node2D
 
-var immuneNode = load("res://upgrades/immunity.tscn")
-var immuneSpawn
+#var immuneNode = load("res://upgrades/immunity.tscn")
+#var immuneSpawn
 var ballNode = preload("res://objects/ball.tscn")
 var ballsInGame = 0 # counter for current ball count
 var ang = randf_range(-PI, PI)
 var countdownTime = 6
 var gamemode 
 var disable_input: bool = false
+var power_up = []	# List for powerups
 
 @onready var endGameBoo = $EndGameSound
 @onready var paddleHit = $PaddleHitSound
@@ -23,7 +24,11 @@ func _ready() -> void:
 	if (selected_mode == 1):
 		gamemode = EnduranceGamemode.new()
 		$SpawnTimer.start()
-
+		
+	# ADD NEW POWERUPS HERE TO THE LIST
+	power_up.append(preload("res://upgrades/immunity.tscn"));
+	power_up.append(preload("res://upgrades/magnet.tscn"));
+	
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
@@ -145,7 +150,7 @@ func gameOver():
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
 	
-	$SpawnTimer.paused 
+	$SpawnTimer.stop() 
 	
 	# Get rid of powerups in scene
 	for child in get_tree().root.get_children():
@@ -183,9 +188,12 @@ func _on_reset_timer_timeout() -> void:
 		
 func _on_spawn_timer_timeout() -> void:
 	if power_up_count() < 1:
-		immuneSpawn = immuneNode.instantiate()
-		get_tree().root.add_child(immuneSpawn)
-		immuneSpawn.position = get_viewport_rect().size / 2
+		
+		var rand = randi() % power_up.size()
+		var power_instance = power_up[rand].instantiate()
+		#immuneSpawn = immuneNode.instantiate()
+		get_tree().root.add_child(power_instance)
+		power_instance.position = get_viewport_rect().size / 2
 	else:
 		pass
 	

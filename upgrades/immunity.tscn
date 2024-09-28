@@ -70,5 +70,3 @@ shape = SubResource("RectangleShape2D_b77f0")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jihe3")
 frame_progress = 0.128957
-
-[node name="Paddle_Affect_Timer" type="Timer" parent="."]
