@@ -84,19 +84,15 @@ func onRemoveBall() -> void:
 	if ballsInGame <= 0:
 		gameOver()
 
-
-
 # Display points in the top left
 func showPoints() -> void:
 	$PointDisplay.text = gamemode.onShowPoints()
-
 
 # Positioning the black inner circle
 func positioning() -> void:
 	var size = Screen.getCircleRadius() / 60
 	$Region.scale = Vector2(size, size)
 	$Region.position = get_viewport_rect().size / 2
-
 
 # Paddle hit effect
 func sparkPaddle(collision) -> void:
@@ -187,7 +183,7 @@ func _on_reset_timer_timeout() -> void:
 		reset()
 		
 func _on_spawn_timer_timeout() -> void:
-	if power_up_count() < 2:
+	if power_up_count() < 1:
 		immuneSpawn = immuneNode.instantiate()
 		get_tree().root.add_child(immuneSpawn)
 		immuneSpawn.position = get_viewport_rect().size / 2
