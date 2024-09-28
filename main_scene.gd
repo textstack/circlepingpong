@@ -10,6 +10,7 @@ var gamemode
 var disable_input: bool = false
 var power_up = []	# List for powerups
 
+@onready var gameMusic = $Music
 @onready var endGameBoo = $EndGameSound
 @onready var paddleHit = $PaddleHitSound
 @onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
@@ -28,10 +29,14 @@ func _ready() -> void:
 	# ADD NEW POWERUPS HERE TO THE LIST
 	power_up.append(preload("res://upgrades/immunity.tscn"));
 	power_up.append(preload("res://upgrades/magnet.tscn"));
+	power_up.append(preload("res://upgrades/slow_balls.tscn"));
+	power_up.append(preload("res://upgrades/x2points.tscn"));
 	
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
+	
+	gameMusic.play()
 
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
@@ -191,7 +196,6 @@ func _on_spawn_timer_timeout() -> void:
 		
 		var rand = randi() % power_up.size()
 		var power_instance = power_up[rand].instantiate()
-		#immuneSpawn = immuneNode.instantiate()
 		get_tree().root.add_child(power_instance)
 		power_instance.position = get_viewport_rect().size / 2
 	else:

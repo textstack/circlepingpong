@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2bpp2emocnmq"]
+
+[ext_resource type="Script" path="res://upgrades/x2points.gd" id="1_u7isf"]
+[ext_resource type="Texture2D" uid="uid://cdnfeqju8k2xn" path="res://art/power_ups/x2points.png" id="1_un1kr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hogo1"]
+size = Vector2(51, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78da"]
+atlas = ExtResource("1_un1kr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ycck"]
+atlas = ExtResource("1_un1kr")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgnhp"]
+atlas = ExtResource("1_un1kr")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6le2"]
+atlas = ExtResource("1_un1kr")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpbhp"]
+atlas = ExtResource("1_un1kr")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnluf"]
+atlas = ExtResource("1_un1kr")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ldpoq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78da")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ycck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgnhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6le2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpbhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnluf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="X2Points" type="CharacterBody2D"]
+script = ExtResource("1_u7isf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_hogo1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ldpoq")

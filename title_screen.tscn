@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmcsbn3rtjj7a"]
+[gd_scene load_steps=9 format=3 uid="uid://dmcsbn3rtjj7a"]
 
 [ext_resource type="Script" path="res://title_screen.gd" id="1_0tt3j"]
 [ext_resource type="Texture2D" uid="uid://c3pmmr16rafep" path="res://assets/gdm_banner.jpg" id="2_sxuom"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="3_ae5ks"]
 [ext_resource type="Script" path="res://rich_text_label.gd" id="4_cv8n6"]
+[ext_resource type="AudioStream" uid="uid://c13s7orjtti3f" path="res://sounds/button.wav" id="5_3grud"]
+[ext_resource type="AudioStream" uid="uid://4qoecn28xj2e" path="res://sounds/title_music.mp3" id="6_648rk"]
 
 [sub_resource type="Theme" id="Theme_ypn7n"]
 
@@ -22,6 +24,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0tt3j")
+
+[node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("5_3grud")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.643137)
@@ -74,6 +80,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_3pqgu")
 text = "QUIT"
+
+[node name="TitleMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_648rk")
+volume_db = -8.474
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

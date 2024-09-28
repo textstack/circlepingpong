@@ -8,6 +8,7 @@ var isGlow: bool = false
 @onready var world_env = $"WorldEnvironment"  # Adjust the path if needed
 @onready var glow_timer = $GlowTimer
 @onready var power_up_sound = $Power_Up_Sound
+@onready var power_down_sound = $Power_Down_Sound
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -46,5 +47,6 @@ func activate_glow() -> void:
 	glow_timer.start()  # Start the timer with the given duration  # Debug print
 
 func _on_glow_timer_timeout() -> void:
+	power_down_sound.play()
 	isGlow = false
 	enable_world_glow(isGlow)
