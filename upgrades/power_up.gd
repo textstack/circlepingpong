@@ -26,6 +26,6 @@ func _physics_process(delta: float):
 # Function to create the powerup effect
 func powerup_effect(paddle):
 	print("Power-up activated!")
-	paddle.isPower = true # Mark the isPower variable in Paddle as true
+	paddle.isGlow = true # Mark the isPower variable in Paddle as true
 
 	

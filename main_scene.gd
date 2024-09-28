@@ -14,8 +14,6 @@ var disable_input: bool = false
 @onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
 @onready var gameOverTimer = $ResetTimer
 
-@export var immunity: PackedScene
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gamemode 
@@ -29,7 +27,6 @@ func _ready() -> void:
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
-	#gamemode = EnduranceGamemode.new()
 
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
@@ -147,7 +144,8 @@ func gameOver():
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
-	$SpawnTimer.paused = true
+	
+	$SpawnTimer.paused 
 	
 	# Get rid of powerups in scene
 	for child in get_tree().root.get_children():
@@ -176,6 +174,7 @@ func _on_ball_timer_timeout() -> void:
 
 # Update countdown every second
 func _on_reset_timer_timeout() -> void:
+	$SpawnTimer.start()
 	if countdownTime > 1:
 		countdownTime -= 1
 		gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime

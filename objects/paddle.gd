@@ -2,7 +2,7 @@ extends Node2D
 class_name Paddle
 
 # Variable to control the glow effect
-var isPower: bool = false
+var isGlow: bool = false
 
 # Reference to the WorldEnvironment node
 @onready var world_env = $"WorldEnvironment"  # Adjust the path if needed
@@ -13,7 +13,7 @@ func _process(_delta: float) -> void:
 	orientPaddle(mousePos)
 	
 	# Check if the power-up is active and control the world glow
-	enable_world_glow(isPower)
+	enable_world_glow(isGlow)
 
 # Function to orient the paddle
 func orientPaddle(pos: Vector2) -> void:
