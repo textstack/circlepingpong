@@ -29,8 +29,8 @@ func _ready() -> void:
 	# ADD NEW POWERUPS HERE TO THE LIST
 	#power_up.append(preload("res://upgrades/immunity.tscn"));
 	#power_up.append(preload("res://upgrades/magnet.tscn"));
-	#power_up.append(preload("res://upgrades/slow_balls.tscn"));
-	power_up.append(preload("res://upgrades/x2points.tscn"));
+	power_up.append(preload("res://upgrades/slow_balls.tscn"));
+	#power_up.append(preload("res://upgrades/x2points.tscn"));
 	
 	
 	$"Game Mode"/game_mode.hide()
@@ -204,4 +204,16 @@ func _on_spawn_timer_timeout() -> void:
 	
 	
 func activate_power(power) -> void:
-	power.apply_power_up(self)
+	power.apply_power_up(self) # This allows us to activate any power and makes power access to other
+							   # code easy so we can make the powers happen
+func slowBall() -> void:
+	print("Hello")
+	for child in get_tree().root.get_children():
+		if child is Ball:
+			child.halfSpeed()
+	
+func speedBall() -> void:
+	print("Bye")
+	for child in get_tree().root.get_children():
+		if child is Ball:
+			child.doubleSpeed()

@@ -45,7 +45,7 @@ func enable_world_glow(enable: bool) -> void:
 # Function to set the timer on the glow for the paddle
 func activate_glow(p: power_up) -> void:
 	power_up_sound.play()
-	activate_power.emit(p)
+	activate_power.emit(p) # Signal sends the power instance to main
 	isGlow = true
 	enable_world_glow(isGlow)
 	glow_timer.start()  # Start the timer with the given duration  # Debug print

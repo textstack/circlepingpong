@@ -85,5 +85,6 @@ shape = SubResource("RectangleShape2D_kny63")
 script = SubResource("GDScript_y0q71")
 
 [node name="PowerTime3" type="Timer" parent="."]
+wait_time = 5.0
 
-[connection signal="timeout" from="PowerTime3" to="." method="_on_power_time_3_timeout"]
+[connection signal="timeout" from="PowerTime3" to="." method="deactivate_power"]

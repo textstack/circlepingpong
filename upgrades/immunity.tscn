@@ -72,5 +72,6 @@ sprite_frames = SubResource("SpriteFrames_jihe3")
 frame_progress = 0.128957
 
 [node name="PowerTime1" type="Timer" parent="."]
+wait_time = 5.0
 
 [connection signal="timeout" from="PowerTime1" to="." method="_on_power_time_timeout"]
