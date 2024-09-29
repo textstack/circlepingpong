@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://2tbqniavqyl7" path="res://sounds/pong2.mp3" id="8_1dall"]
 [ext_resource type="AudioStream" uid="uid://d4lcuptpjj0ih" path="res://sounds/pong11.mp3" id="9_7irea"]
 [ext_resource type="AudioStream" uid="uid://b563ysu4p0jua" path="res://sounds/pong12.mp3" id="10_liyvr"]
-[ext_resource type="PackedScene" path="res://gamemodes/game_mode.tscn" id="10_n7e1q"]
+[ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemodes/game_mode.tscn" id="10_n7e1q"]
 [ext_resource type="AudioStream" uid="uid://d1tx4jpnywd7k" path="res://sounds/pong13.mp3" id="11_psxq2"]
 [ext_resource type="AudioStream" uid="uid://c73m127vbi6di" path="res://sounds/pong14.mp3" id="12_8gxmj"]
 [ext_resource type="AudioStream" uid="uid://boo20o13cmnlj" path="res://sounds/pong15.mp3" id="13_tpnwb"]
@@ -147,6 +147,7 @@ process_mode = 3
 [node name="SpawnTimer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 10.0
+autostart = true
 
 [node name="PointDisplay" type="Label" parent="."]
 offset_left = 22.0

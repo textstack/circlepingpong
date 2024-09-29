@@ -71,6 +71,8 @@ func _process(delta: float) -> void:
 "
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 29
 script = ExtResource("1_tt77y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -81,3 +83,7 @@ sprite_frames = SubResource("SpriteFrames_a3tww")
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_kny63")
 script = SubResource("GDScript_y0q71")
+
+[node name="PowerTime3" type="Timer" parent="."]
+
+[connection signal="timeout" from="PowerTime3" to="." method="_on_power_time_3_timeout"]

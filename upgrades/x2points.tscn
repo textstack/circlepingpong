@@ -57,6 +57,8 @@ animations = [{
 }]
 
 [node name="X2Points" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 29
 script = ExtResource("1_u7isf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -66,3 +68,7 @@ shape = SubResource("RectangleShape2D_hogo1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ldpoq")
+
+[node name="PowerTime4" type="Timer" parent="."]
+
+[connection signal="timeout" from="PowerTime4" to="." method="_on_power_time_4_timeout"]

@@ -69,3 +69,7 @@ shape = SubResource("RectangleShape2D_ir7vl")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_50iqq")
 frame_progress = 0.681799
+
+[node name="PowerTime2" type="Timer" parent="."]
+
+[connection signal="timeout" from="PowerTime2" to="." method="_on_power_time_2_timeout"]
