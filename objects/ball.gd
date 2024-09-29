@@ -19,7 +19,6 @@ var backSpin = Vector2(0, 0)
 var oldSpeed = 0
 var frontSpin = false
 
-
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
 
@@ -103,3 +102,12 @@ func _on_delete_timer_timeout() -> void:
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
+	
+func halfSpeed() -> void:
+	$BallMdl.velocity = velocity * .5
+	print("g")
+	# I'm not super clear on velocity stuff with the ball so I'm not sure if this works
+	
+func doubleSpeed() -> void:
+	$BallMdl.velocity = velocity * 2
+	print("s")

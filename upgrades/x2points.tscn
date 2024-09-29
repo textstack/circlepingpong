@@ -68,3 +68,8 @@ shape = SubResource("RectangleShape2D_hogo1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ldpoq")
+
+[node name="PowerTime4" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="PowerTime4" to="." method="deactivate_powers"]
