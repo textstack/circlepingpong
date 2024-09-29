@@ -27,10 +27,11 @@ func _ready() -> void:
 		$SpawnTimer.start()
 		
 	# ADD NEW POWERUPS HERE TO THE LIST
-	power_up.append(preload("res://upgrades/immunity.tscn"));
-	power_up.append(preload("res://upgrades/magnet.tscn"));
-	power_up.append(preload("res://upgrades/slow_balls.tscn"));
+	#power_up.append(preload("res://upgrades/immunity.tscn"));
+	#power_up.append(preload("res://upgrades/magnet.tscn"));
+	#power_up.append(preload("res://upgrades/slow_balls.tscn"));
 	power_up.append(preload("res://upgrades/x2points.tscn"));
+	
 	
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
@@ -201,5 +202,6 @@ func _on_spawn_timer_timeout() -> void:
 	else:
 		pass
 	
-		
 	
+func activate_power(power) -> void:
+	power.apply_power_up(self)

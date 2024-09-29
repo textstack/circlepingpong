@@ -19,7 +19,6 @@ var backSpin = Vector2(0, 0)
 var oldSpeed = 0
 var frontSpin = false
 
-
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
 

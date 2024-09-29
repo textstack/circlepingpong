@@ -1,6 +1,9 @@
 extends Node2D
 class_name Paddle
 
+signal activate_power(power)
+#Signal so I can activate power insatnce from main
+
 # Variable to control the glow effect
 var isGlow: bool = false
 
@@ -40,8 +43,9 @@ func enable_world_glow(enable: bool) -> void:
 			world_env.environment.glow_enabled = false  # Disable the glow
 
 # Function to set the timer on the glow for the paddle
-func activate_glow() -> void:
+func activate_glow(p: power_up) -> void:
 	power_up_sound.play()
+	activate_power.emit(p)
 	isGlow = true
 	enable_world_glow(isGlow)
 	glow_timer.start()  # Start the timer with the given duration  # Debug print

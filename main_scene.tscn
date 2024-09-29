@@ -182,6 +182,7 @@ process_mode = 3
 stream = ExtResource("39_wlem0")
 volume_db = -13.198
 
+[connection signal="activate_power" from="Paddle" to="." method="activate_power"]
 [connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
 [connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -70,5 +70,6 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ldpoq")
 
 [node name="PowerTime4" type="Timer" parent="."]
+wait_time = 5.0
 
-[connection signal="timeout" from="PowerTime4" to="." method="_on_power_time_4_timeout"]
+[connection signal="timeout" from="PowerTime4" to="." method="deactivate_powers"]

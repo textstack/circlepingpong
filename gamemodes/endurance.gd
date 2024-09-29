@@ -25,6 +25,8 @@ func determinePointsNeeded(minus: int = 0) -> int:
 
 func onBallHit(ball, _collision) -> void:
 	points += 1
+	if x2power:
+		points+=1
 	ballPoints += 1
 	ball.velocity = ball.velocity * speedMult
 	

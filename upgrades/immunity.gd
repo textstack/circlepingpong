@@ -1,9 +1,15 @@
 extends power_up
 class_name immunity
 
-func apply_power_up(paddle):
+func apply_power_up(power):
 	print("immunity")
 	$PowerTime1.start()
+	for child in get_node("res://main_scene").get_tree().root.get_children():
+		if child is Ball:
+			pass
+	
 
-func _on_power_time_timeout() -> void:
-	pass # Unods Immunity Powers
+func rescind_power_up():
+	for child in get_node("res://main_scene").get_tree().root.get_children():
+		if child is Ball:
+			pass

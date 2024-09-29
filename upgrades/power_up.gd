@@ -19,7 +19,7 @@ func _physics_process(delta: float):
 		# Make sure collider is apart of paddle group
 		if collider.is_in_group("paddle"):
 			powerup_effect(paddle)  # Pass Paddle instance into power_up
-			queue_free()
+			#queue_free()
 			
 			return
 		velocity = velocity.bounce(collision.get_normal())
@@ -28,7 +28,7 @@ func _physics_process(delta: float):
 func powerup_effect(paddle):
 	print("Power-up activated!")
 	paddle.isGlow = true # Mark the isPower variable in Paddle as true
-	paddle.activate_glow()
+	paddle.activate_glow(self)
 
 
 	
