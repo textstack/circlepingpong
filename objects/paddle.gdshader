@@ -14,5 +14,3 @@ void fragment() {
     // Blend the glow with the paddle's original texture color
     COLOR = mix(tex_color, glow, opacity);
 }
-
-

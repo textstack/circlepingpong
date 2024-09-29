@@ -71,6 +71,8 @@ func _process(delta: float) -> void:
 "
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 29
 script = ExtResource("1_tt77y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
