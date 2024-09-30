@@ -1,0 +1,179 @@
+[gd_scene load_steps=46 format=3 uid="uid://i41s1hlvmvf5"]
+
+[ext_resource type="Script" path="res://main_scene.gd" id="1_jawee"]
+[ext_resource type="PackedScene" uid="uid://qfubdmubujux" path="res://objects/paddle.tscn" id="1_saa7w"]
+[ext_resource type="PackedScene" uid="uid://2yr4p3g7jejs" path="res://objects/region.tscn" id="2_18ihw"]
+[ext_resource type="PackedScene" uid="uid://c2cbdyvdijlwb" path="res://background.tscn" id="2_enxwp"]
+[ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="5_vbyuq"]
+[ext_resource type="PackedScene" uid="uid://dn8pg8gfa5hx3" path="res://pause_menu.tscn" id="6_4u45t"]
+[ext_resource type="AudioStream" uid="uid://d3vm1qjbd0gvs" path="res://sounds/boo.mp3" id="6_sirso"]
+[ext_resource type="PackedScene" uid="uid://81odji3xf7re" path="res://endscreen/end_game.tscn" id="7_8s8su"]
+[ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="7_l4sou"]
+[ext_resource type="AudioStream" uid="uid://d0ip4xeg6f8kf" path="res://sounds/pong1.mp3" id="7_r2rjs"]
+[ext_resource type="AudioStream" uid="uid://2tbqniavqyl7" path="res://sounds/pong2.mp3" id="8_1dall"]
+[ext_resource type="AudioStream" uid="uid://d4lcuptpjj0ih" path="res://sounds/pong11.mp3" id="9_7irea"]
+[ext_resource type="AudioStream" uid="uid://b563ysu4p0jua" path="res://sounds/pong12.mp3" id="10_liyvr"]
+[ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemode.tscn" id="10_n7e1q"]
+[ext_resource type="AudioStream" uid="uid://d1tx4jpnywd7k" path="res://sounds/pong13.mp3" id="11_psxq2"]
+[ext_resource type="AudioStream" uid="uid://c73m127vbi6di" path="res://sounds/pong14.mp3" id="12_8gxmj"]
+[ext_resource type="AudioStream" uid="uid://boo20o13cmnlj" path="res://sounds/pong15.mp3" id="13_tpnwb"]
+[ext_resource type="AudioStream" uid="uid://c06onlldxc0js" path="res://sounds/pong16.mp3" id="14_oaxw1"]
+[ext_resource type="AudioStream" uid="uid://b1oujyne6us33" path="res://sounds/pong17.mp3" id="15_h2foo"]
+[ext_resource type="AudioStream" uid="uid://dfuxnjfwtnm1p" path="res://sounds/pong18.mp3" id="16_y8w8c"]
+[ext_resource type="AudioStream" uid="uid://ch8ppogg2wug8" path="res://sounds/pong19.mp3" id="17_84rag"]
+[ext_resource type="AudioStream" uid="uid://ct68hvq2s85yd" path="res://sounds/pong20.mp3" id="18_gcwf1"]
+[ext_resource type="AudioStream" uid="uid://bapaiavhn1njg" path="res://sounds/pong3.mp3" id="19_4ovee"]
+[ext_resource type="AudioStream" uid="uid://38n01sdnwjgf" path="res://sounds/pong21.mp3" id="20_rt5ly"]
+[ext_resource type="AudioStream" uid="uid://sowis1oqs7rv" path="res://sounds/pong22.mp3" id="21_iqkj2"]
+[ext_resource type="AudioStream" uid="uid://bj0d8j1ym0v6h" path="res://sounds/pong23.mp3" id="22_mtchs"]
+[ext_resource type="AudioStream" uid="uid://fwd0tvioujhs" path="res://sounds/pong24.mp3" id="23_46fns"]
+[ext_resource type="AudioStream" uid="uid://bq2vy8hd3jacf" path="res://sounds/pong25.mp3" id="24_p1pqs"]
+[ext_resource type="AudioStream" uid="uid://ct5xqqoejfvyo" path="res://sounds/pong26.mp3" id="25_2ntwf"]
+[ext_resource type="AudioStream" uid="uid://cr6ylhffvekbv" path="res://sounds/pong27.mp3" id="26_3q342"]
+[ext_resource type="AudioStream" uid="uid://ckr2byy0vso82" path="res://sounds/pong28.mp3" id="27_nljqr"]
+[ext_resource type="AudioStream" uid="uid://d3ffkf24r6dbi" path="res://sounds/pong4.mp3" id="28_f1r5w"]
+[ext_resource type="AudioStream" uid="uid://bf62vqhkrippl" path="res://sounds/pong5.mp3" id="29_50f3e"]
+[ext_resource type="AudioStream" uid="uid://c5t6kaak5t0h7" path="res://sounds/pong6.mp3" id="30_mxbqj"]
+[ext_resource type="AudioStream" uid="uid://byu8pg7o64mxd" path="res://sounds/pong7.mp3" id="31_08b2g"]
+[ext_resource type="AudioStream" uid="uid://5vr5m7qmpp8b" path="res://sounds/pong8.mp3" id="32_evvgp"]
+[ext_resource type="AudioStream" uid="uid://dxoj1j6eguu6c" path="res://sounds/pong9.mp3" id="33_ed5me"]
+[ext_resource type="AudioStream" uid="uid://bvnxwwsj1a1b1" path="res://sounds/pong10.mp3" id="34_j1mdx"]
+[ext_resource type="AudioStream" uid="uid://bx6m8k2m43eg1" path="res://sounds/game_music.mp3" id="39_wlem0"]
+
+[sub_resource type="Curve2D" id="Curve2D_vlxg0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -65, 0, 0, 0, 0, 17, -63, 0, 0, 0, 0, 32, -56, 0, 0, 0, 0, 46, -46, 0, 0, 0, 0, 56, -32, 0, 0, 0, 0, 63, -17, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 63, 17, 0, 0, 0, 0, 56, 33, 0, 0, 0, 0, 46, 46, 0, 0, 0, 0, 32, 56, 0, 0, 0, 0, 17, 63, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, -17, 63, 0, 0, 0, 0, -33, 56, 0, 0, 0, 0, -46, 46, 0, 0, 0, 0, -57, 32, 0, 0, 0, 0, -63, 16, 0, 0, 0, 0, -65, 0, 0, 0, 0, 0, -63, -17, 0, 0, 0, 0, -57, -33, 0, 0, 0, 0, -46, -46, 0, 0, 0, 0, -33, -57, 0, 0, 0, 0, -17, -63, 0, 0, 0, 0, 0, -65)
+}
+point_count = 25
+
+[sub_resource type="Curve" id="Curve_uocoq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_47kfs"]
+curve = SubResource("Curve_uocoq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f0tt8"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_47kfs")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hls1i"]
+streams_count = 28
+stream_0/stream = ExtResource("7_r2rjs")
+stream_1/stream = ExtResource("8_1dall")
+stream_2/stream = ExtResource("19_4ovee")
+stream_3/stream = ExtResource("28_f1r5w")
+stream_4/stream = ExtResource("29_50f3e")
+stream_5/stream = ExtResource("30_mxbqj")
+stream_6/stream = ExtResource("31_08b2g")
+stream_7/stream = ExtResource("32_evvgp")
+stream_8/stream = ExtResource("33_ed5me")
+stream_9/stream = ExtResource("34_j1mdx")
+stream_10/stream = ExtResource("9_7irea")
+stream_11/stream = ExtResource("10_liyvr")
+stream_12/stream = ExtResource("11_psxq2")
+stream_13/stream = ExtResource("12_8gxmj")
+stream_14/stream = ExtResource("13_tpnwb")
+stream_15/stream = ExtResource("14_oaxw1")
+stream_16/stream = ExtResource("15_h2foo")
+stream_17/stream = ExtResource("16_y8w8c")
+stream_18/stream = ExtResource("17_84rag")
+stream_19/stream = ExtResource("18_gcwf1")
+stream_20/stream = ExtResource("20_rt5ly")
+stream_21/stream = ExtResource("21_iqkj2")
+stream_22/stream = ExtResource("22_mtchs")
+stream_23/stream = ExtResource("23_46fns")
+stream_24/stream = ExtResource("24_p1pqs")
+stream_25/stream = ExtResource("25_2ntwf")
+stream_26/stream = ExtResource("26_3q342")
+stream_27/stream = ExtResource("27_nljqr")
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_n36es"]
+b = Vector2(18, 2)
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_jawee")
+
+[node name="Background" parent="." instance=ExtResource("2_enxwp")]
+
+[node name="Region" parent="." instance=ExtResource("2_18ihw")]
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vlxg0")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(0, -65)
+rotation = 0.117109
+
+[node name="PaddleSpark" type="GPUParticles2D" parent="."]
+position = Vector2(0, -10)
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_f0tt8")
+texture = ExtResource("5_vbyuq")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+
+[node name="Paddle" parent="." instance=ExtResource("1_saa7w")]
+
+[node name="EndGameSound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("6_sirso")
+volume_db = 4.634
+
+[node name="PaddleHitSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_hls1i")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 10.0
+
+[node name="PointDisplay" type="Label" parent="."]
+offset_left = 22.0
+offset_top = 22.0
+offset_right = 150.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("7_l4sou")
+theme_override_font_sizes/font_size = 70
+text = "0 (0)"
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="PauseMenu" instance=ExtResource("6_4u45t")]
+
+[node name="EndGame" type="CanvasLayer" parent="."]
+
+[node name="end_game" parent="EndGame" instance=ExtResource("7_8s8su")]
+
+[node name="Gamemode" type="CanvasLayer" parent="."]
+
+[node name="gamemode" parent="Gamemode" instance=ExtResource("10_n7e1q")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -66)
+shape = SubResource("SegmentShape2D_n36es")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("39_wlem0")
+volume_db = -13.198
+
+[connection signal="activate_power" from="Paddle" to="." method="activate_power"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

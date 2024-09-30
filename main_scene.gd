@@ -7,24 +7,16 @@ var ballsInGame = 0 # counter for current ball count
 var ang = randf_range(-PI, PI)
 var gamemode
 var disable_input: bool = false
-var power_up = []	# List for powerups
 
 @onready var gameMusic = $Music
 @onready var endGameBoo = $EndGameSound
 @onready var paddleHit = $PaddleHitSound
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gamemode 
 	gamemode = ModeAuto.getMode()
-	
-	$SpawnTimer.start()
-	
-	# ADD NEW POWERUPS HERE TO THE LIST
-	#power_up.append(preload("res://upgrades/immunity.tscn"));
-	power_up.append(preload("res://upgrades/magnet.tscn"));
-	#power_up.append(preload("res://upgrades/slow_balls.tscn"));
-	#power_up.append(preload("res://upgrades/x2points.tscn"));
 	
 	$Gamemode/gamemode.hide()
 	$PauseMenu/pause_menu.hide()
@@ -36,6 +28,7 @@ func _ready() -> void:
 	gameMusic.play()
 
 	gamemode.mainScene = self
+	gamemode.onStart()
 	$Region.lose.connect(onRemoveBall)
 	createBall()
 	positioning()
@@ -58,22 +51,6 @@ func createBall() -> void:
 	inst.velocity = Vector2(cos(ang) * speed, sin(ang) * speed)
 	inst.collide.connect(onBallHit)
 	add_child(inst)
-
-
-# Counts powerup in the scene
-func power_up_count() -> int:
-	var count = 0
-	for child in get_tree().root.get_children():
-		if child is power_up:
-			count += 1
-	return count
-
-
-# Spawns immunity powerup
-#func createImmune() -> void:
-	#immuneSpawn = immuneNode.instantiate()
-	#immuneSpawn.position = get_viewport_rect().size / 2
-	#add_child(immuneSpawn)
 
 
 # When the paddle hits a ball, update points and call a paddle animation
@@ -141,7 +118,6 @@ func reset() -> void:
 	$Background.lerpRotation = 0
 	showPoints()
 	createBall()
-	cleanPowerups()
 	
 	$EndGame/end_game/CircleMeter.killTimer()
 	
@@ -149,12 +125,6 @@ func reset() -> void:
 		var tween = get_tree().create_tween()
 		tween.tween_property($EndGame/end_game, "modulate", Color(1, 1, 1, 0), 0.5)
 		tween.tween_callback($EndGame/end_game.hide)
-
-
-func cleanPowerups():
-	for child in get_tree().root.get_children():
-		if child is power_up:
-			child.queue_free()
 
 
 # Called when the game has ended
@@ -166,10 +136,6 @@ func gameOver():
 	$EndGame/end_game.show()
 	$EndGame/end_game/ScoreContainer/Score.text = "HIGH SCORE: " + str(High.highscore)
 	$EndGame/end_game/CircleMeter.startTimer(8, reset)
-	
-	$SpawnTimer.stop()
-	
-	cleanPowerups()
 	
 	$EndGame/end_game.modulate.a = 0
 	var tween = get_tree().create_tween()
@@ -186,17 +152,6 @@ func _input(event: InputEvent) -> void:
 func check_or_replace_highscore(score : int) -> void:
 	if High.highscore < score:
 		High.highscore = score
-
-
-func _on_spawn_timer_timeout() -> void:
-	if power_up_count() < 1:
-		
-		var rand = randi() % power_up.size()
-		var power_instance = power_up[rand].instantiate()
-		get_tree().root.add_child(power_instance)
-		power_instance.position = get_viewport_rect().size / 2
-	else:
-		pass
 
 
 func activate_power(power) -> void:
