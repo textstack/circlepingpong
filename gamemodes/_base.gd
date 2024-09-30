@@ -3,11 +3,11 @@
 extends Node
 class_name BaseGamemode
 
-# configurables for speed
+# Configurables for speed
 var baseSpeed = 150
 var addSpeed = 7
 
-# points
+# Points
 var points = 0
 var mainScene
 
@@ -36,18 +36,15 @@ func getBallSpeed() -> int:
 func onReset() -> void:
 	points = 0
 
-# All below function are for game modes other than base
+# All below functions are for game modes other than base
 func onGameOver() -> void:
 	pass
-
 
 func onBallRemoved() -> void:
 	pass
 
-
 func onCreateBall() -> void:
 	pass
-
 
 func onStart() -> void:
 	pass
