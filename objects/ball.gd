@@ -24,6 +24,7 @@ var doMagnet = false
 var deleting = false
 var lastHit
 var paddle
+var targetSpeed = 150
 
 
 # Store the original collision layers and masks for the immunity power
@@ -99,8 +100,13 @@ func onCollide(collision) -> void:
 	handleSpin()
 	collide.emit(self, collision)
 	lastHit = Time.get_unix_time_from_system()
+	
+	var length = velocity.length()
 	if modSpeed > 0:
-		velocity = velocity * (modSpeed / velocity.length())
+		velocity = velocity * (modSpeed / length)
+	elif length < targetSpeed:
+		var newSpeed = (length + targetSpeed) / 2
+		velocity = velocity * (newSpeed / length)
 
 # Function for 
 func goTowardsPaddle():
@@ -131,9 +137,11 @@ func _physics_process(_delta: float) -> void:
 func _on_delete_timer_timeout() -> void:
 	queue_free()
 
+
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
+
 
 # Reduces the speed of a ball by half
 func halfSpeed() -> void:
@@ -152,6 +160,7 @@ func doubleSpeed() -> void:
 	modSpeed = 0
 	print("Ball sped back up")
 
+
 func magnetize(p) -> void:
 	doMagnet = true
 	paddle = p
@@ -163,7 +172,8 @@ func unMagnetize() -> void:
 	doMagnet = false
 	print("Ball has been demagnetized")
 	#Turns Magnet Siwtch to False
-	
+
+
 func immunity() -> void:
 	# Save the original collision layers and masks before modifying
 	original_collision_layers = $BallMdl.collision_layer
@@ -173,9 +183,9 @@ func immunity() -> void:
 	$BallMdl.set_collision_mask_value(4, true)
 	$BallMdl.set_collision_mask_value(5, true)
 	print("Ball is immune")
-	
+
+
 func noImmunity() -> void:
 	$BallMdl.collision_layer = original_collision_layers
 	$BallMdl.collision_mask = original_collision_masks
 	print("Ball is no longer immune")
-	

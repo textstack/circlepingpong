@@ -4,7 +4,7 @@ class_name power_up # Base class for all powerups
 #configurables
 var maxCollides = 2
 
-@export var speed = 120
+@export var speed = 150
 var collides = 0
 
 

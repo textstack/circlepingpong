@@ -43,10 +43,11 @@ func createBall() -> void:
 	gamemode.onCreateBall()
 	showPoints()
 	
-	var speed = gamemode.getBallSpeed()
+	var speed = (450 + gamemode.getBallSpeed()) / 4
 	var inst = ballNode.instantiate()
 	inst.position = get_viewport_rect().size / 2
 	inst.velocity = Vector2(cos(ang) * speed, sin(ang) * speed)
+	inst.targetSpeed = gamemode.getBallSpeed()
 	inst.collide.connect(onBallHit)
 	add_child(inst)
 
