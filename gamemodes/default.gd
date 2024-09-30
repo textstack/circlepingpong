@@ -48,9 +48,9 @@ func spawnPowerup() -> void:
 func onStart() -> void:
 	super()
 	powerUps.append(preload("res://upgrades/immunity.tscn"));
-	#powerUps.append(preload("res://upgrades/magnet.tscn"));
-	#powerUps.append(preload("res://upgrades/slow_balls.tscn"));
-	#powerUps.append(preload("res://upgrades/x2points.tscn"));
+	powerUps.append(preload("res://upgrades/magnet.tscn"));
+	powerUps.append(preload("res://upgrades/slow_balls.tscn"));
+	powerUps.append(preload("res://upgrades/x2points.tscn"));
 
 
 func cleanPowerups():

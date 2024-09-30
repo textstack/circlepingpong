@@ -1,9 +1,10 @@
 extends Node2D
 class_name Ball
 
+# Collision signal
 signal collide(ball, collision)
 
-# configurables
+# Configurable variables
 var spinChance = 15
 var sideSpinMin = 0.01
 var sideSpinMax = 0.03
@@ -11,38 +12,42 @@ var sideSpinFactor = 0.06
 var backSpinMin = 0.02
 var backSpinMax = 0.03
 
-var velocity = Vector2(0, 0)
-var lastHit
+# Variables
 var sideSpin = 0
 var collideCount = 0
-var backSpin = Vector2(0, 0)
 var oldSpeed = 0
+var modSpeed = 0
+var velocity = Vector2(0, 0)
+var backSpin = Vector2(0, 0)
 var frontSpin = false
 var doMagnet = false
-var paddle
 var deleting = false
-var modSpeed = 0
+var lastHit
+var paddle
 
-# Store the original collision layers and masks for the ball
+
+# Store the original collision layers and masks for the immunity power
 var original_collision_layers = 0
 var original_collision_masks = 0
 
-
+# Called when Ball is created
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
 
-
+# Prepares the ball for deletion
 func prepareDelete() -> void:
-	sideSpin = 0
+	sideSpin = 0                           # Reset variables to 0
 	backSpin = Vector2(0, 0)
-	$BallMdl/CurveTrail.emitting = false
+	$BallMdl/CurveTrail.emitting = false   # Disable trails
 	$BallMdl/BasicTrail.emitting = false
 	$BallMdl/CollisionShape2D.queue_free()
-	$DeleteTimer.start()
+	$DeleteTimer.start()                   # Start the delete timer
 
-
+# Logic for spin effects
 func handleSpin() -> void:
-	var doSpin = randi_range(0, spinChance - collideCount)
+	var doSpin = randi_range(0, spinChance - collideCount) # randomly decide spin
+	
+	# Different types of spins
 	if frontSpin:
 		frontSpin = false
 		$BallMdl/Spindicator.visible = false
@@ -56,11 +61,13 @@ func handleSpin() -> void:
 	elif doSpin == 3:
 		$SpinTimer.start()
 	
+	# Check for spin and apply visual effects
 	if sideSpin != 0 or backSpin != Vector2(0, 0):
 		$BallMdl/CurveTrail.emitting = true
 		$BallMdl/BasicTrail.emitting = false
 		collideCount = 0
-		sideSpin *= randf_range(sideSpinMin, clamp(velocity.length() * sideSpinFactor, sideSpinMin, sideSpinMax))
+		sideSpin *= randf_range(sideSpinMin, clamp(velocity.length() 
+		* sideSpinFactor, sideSpinMin, sideSpinMax))
 		backSpin *= randf_range(backSpinMin, backSpinMax)
 		oldSpeed = velocity.length()
 		$PaddleSpinSound.play()
@@ -69,12 +76,13 @@ func handleSpin() -> void:
 		$BallMdl/BasicTrail.emitting = true
 		$PaddleHitSound.play()
 
-	collideCount += 1
+	collideCount += 1 # Increment collide count
 
-
+# Handles when the ball collides with an object
 func onCollide(collision) -> void:
-	velocity = velocity.bounce(collision.get_normal())
+	velocity = velocity.bounce(collision.get_normal()) # Adjust velocity
 	
+	# Rest spin effects after a collision
 	if sideSpin != 0 or backSpin != Vector2(0, 0):
 		$BallMdl/CurveTrail.emitting = false
 		$BallMdl/BasicTrail.emitting = true
@@ -82,8 +90,10 @@ func onCollide(collision) -> void:
 		backSpin = Vector2(0, 0)
 		velocity = velocity * (oldSpeed / velocity.length())
 	
+	# Check if collision was not with Paddle
 	if collision.get_collider().get_parent() is not Paddle:
 		return
+	
 	
 	if Time.get_unix_time_from_system() - lastHit < 0.25:
 		return
@@ -177,13 +187,10 @@ func immunity() -> void:
 	# Save the original collision layers and masks before modifying
 	original_collision_layers = $BallMdl.collision_layer
 	original_collision_masks = $BallMdl.collision_mask
-	
 	$BallMdl.set_collision_layer_value(2, true)
 	$BallMdl.set_collision_mask_value(1, true)
 	$BallMdl.set_collision_mask_value(4, true)
 	$BallMdl.set_collision_mask_value(5, true)
-	
-	
 	print("Ball is immune")
 	
 func noImmunity() -> void:
