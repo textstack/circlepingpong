@@ -213,7 +213,6 @@ func slowBall() -> void:
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
 			child.halfSpeed()  # Halves the velocity of each ball
-			print("Slowed ball velocity:", child.velocity)
 	
 # This function calls the doubleSpeed function in class "ball" when the powerup time runsout
 func speedBall() -> void:
@@ -221,4 +220,3 @@ func speedBall() -> void:
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
 			child.doubleSpeed()  # doubles the velocity of each ball
-			print("Slowed ball velocity:", child.velocity)
