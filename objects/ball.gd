@@ -93,29 +93,23 @@ func onCollide(collision) -> void:
 	# Check if collision was not with Paddle
 	if collision.get_collider().get_parent() is not Paddle:
 		return
-	
-	
 	if Time.get_unix_time_from_system() - lastHit < 0.25:
 		return
 	
 	handleSpin()
 	collide.emit(self, collision)
 	lastHit = Time.get_unix_time_from_system()
-	
 	if modSpeed > 0:
 		velocity = velocity * (modSpeed / velocity.length())
 
-
+# Function for 
 func goTowardsPaddle():
 	if not doMagnet:
 		return
-	
 	if sideSpin != 0 or backSpin != Vector2(0, 0):
 		return
-	
 	if Time.get_unix_time_from_system() - lastHit < 0.5:
 		return
-	
 	var diff = paddle.position - position
 	var length = velocity.length()
 	velocity = velocity + diff * 0.1
@@ -127,12 +121,9 @@ func _physics_process(_delta: float) -> void:
 	var collision = $BallMdl.get_last_slide_collision()
 	if collision:
 		onCollide(collision)
-	
 	velocity = velocity.rotated(sideSpin)
 	velocity = velocity + backSpin
-	
 	goTowardsPaddle()
-	
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
 
@@ -140,17 +131,14 @@ func _physics_process(_delta: float) -> void:
 func _on_delete_timer_timeout() -> void:
 	queue_free()
 
-
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
-
 
 # Reduces the speed of a ball by half
 func halfSpeed() -> void:
 	if modSpeed > 0:
 		return
-	
 	modSpeed = velocity.length() / 2
 	velocity = velocity * (modSpeed / velocity.length())
 	print("Ball speed halved")
@@ -160,16 +148,9 @@ func halfSpeed() -> void:
 func doubleSpeed() -> void:
 	if modSpeed <= 0:
 		return
-	
 	velocity = velocity * 2
 	modSpeed = 0
 	print("Ball sped back up")
-
-## TESTING
-#func resetBallSpeeds() -> void:
-	#for ball in main_scene.get_children():
-		#if ball is Ball:
-			#ball.doubleSpeed()
 
 func magnetize(p) -> void:
 	doMagnet = true
