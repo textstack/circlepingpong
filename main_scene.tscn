@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://2tbqniavqyl7" path="res://sounds/pong2.mp3" id="8_1dall"]
 [ext_resource type="AudioStream" uid="uid://d4lcuptpjj0ih" path="res://sounds/pong11.mp3" id="9_7irea"]
 [ext_resource type="AudioStream" uid="uid://b563ysu4p0jua" path="res://sounds/pong12.mp3" id="10_liyvr"]
-[ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemodes/game_mode.tscn" id="10_n7e1q"]
+[ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemode.tscn" id="10_n7e1q"]
 [ext_resource type="AudioStream" uid="uid://d1tx4jpnywd7k" path="res://sounds/pong13.mp3" id="11_psxq2"]
 [ext_resource type="AudioStream" uid="uid://c73m127vbi6di" path="res://sounds/pong14.mp3" id="12_8gxmj"]
 [ext_resource type="AudioStream" uid="uid://boo20o13cmnlj" path="res://sounds/pong15.mp3" id="13_tpnwb"]
@@ -167,9 +167,9 @@ text = "0 (0)"
 
 [node name="end_game" parent="EndGame" instance=ExtResource("7_8s8su")]
 
-[node name="Game Mode" type="CanvasLayer" parent="."]
+[node name="Gamemode" type="CanvasLayer" parent="."]
 
-[node name="game_mode" parent="Game Mode" instance=ExtResource("10_n7e1q")]
+[node name="gamemode" parent="Gamemode" instance=ExtResource("10_n7e1q")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

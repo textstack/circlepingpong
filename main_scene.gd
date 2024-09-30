@@ -19,12 +19,9 @@ var power_up = []	# List for powerups
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gamemode 
-	var selected_mode = ModeAuto.getMode()
-	if (selected_mode == 0):
-		gamemode = BaseGamemode.new()
-	if (selected_mode == 1):
-		gamemode = EnduranceGamemode.new()
-		$SpawnTimer.start()
+	gamemode = ModeAuto.getMode()
+	
+	#$SpawnTimer.start()
 		
 	# ADD NEW POWERUPS HERE TO THE LIST
 	#power_up.append(preload("res://upgrades/immunity.tscn"));
@@ -33,7 +30,7 @@ func _ready() -> void:
 	#power_up.append(preload("res://upgrades/x2points.tscn"));
 	
 	
-	$"Game Mode"/game_mode.hide()
+	$Gamemode/gamemode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
 	
@@ -156,7 +153,7 @@ func gameOver():
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
 	
-	$SpawnTimer.stop() 
+	$SpawnTimer.stop()
 	
 	# Get rid of powerups in scene
 	for child in get_tree().root.get_children():
