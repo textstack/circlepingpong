@@ -133,15 +133,14 @@ func _physics_process(_delta: float) -> void:
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
 
-
+# Delete timer
 func _on_delete_timer_timeout() -> void:
 	queue_free()
 
-
+# Spin timer
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
-
 
 # Reduces the speed of a ball by half
 func halfSpeed() -> void:
@@ -151,7 +150,6 @@ func halfSpeed() -> void:
 	velocity = velocity * (modSpeed / velocity.length())
 	print("Ball speed halved")
 
-
 # Speeds up the by double
 func doubleSpeed() -> void:
 	if modSpeed <= 0:
@@ -160,20 +158,18 @@ func doubleSpeed() -> void:
 	modSpeed = 0
 	print("Ball sped back up")
 
-
+# Function for magnet powerup
 func magnetize(p) -> void:
 	doMagnet = true
 	paddle = p
 	print("Ball has been magnetized")
-	#Takes paddle object and turns magnet switch to true
-
-
+	
+# Function to unmagnetize ball
 func unMagnetize() -> void:
 	doMagnet = false
 	print("Ball has been demagnetized")
-	#Turns Magnet Siwtch to False
 
-
+# Function for immunity power up
 func immunity() -> void:
 	# Save the original collision layers and masks before modifying
 	original_collision_layers = $BallMdl.collision_layer
@@ -184,7 +180,7 @@ func immunity() -> void:
 	$BallMdl.set_collision_mask_value(5, true)
 	print("Ball is immune")
 
-
+# Function to turn off immunity 
 func noImmunity() -> void:
 	$BallMdl.collision_layer = original_collision_layers
 	$BallMdl.collision_mask = original_collision_masks
