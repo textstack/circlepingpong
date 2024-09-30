@@ -355,11 +355,12 @@ offset_top = -212.0
 offset_right = 296.0
 offset_bottom = 282.0
 theme = SubResource("Theme_kt36c")
+bbcode_enabled = true
 text = "Gamemodes:
-Endurance - Multi-ball, full powerups
-Base - One ball, no powerups
-\"Nux Mode\" - Multi slow ball, powerups
-Default Mode - One ball, poewrups
+[rainbow freq=.2 sat=0.8 val=0.9]Default Mode[/rainbow] - Multi-ball, powerups
+[rainbow freq=.2 sat=0.8 val=0.9]No upgrades[/rainbow] - Multi-ball, no powerups
+[rainbow freq=.2 sat=0.8 val=0.9]\"Nux Mode\"[/rainbow] - Multi slow ball, powerups
+[rainbow freq=.2 sat=0.8 val=0.9]One Ball[/rainbow] - One ball, no powerups
 
            x2 points                Slow balls
 
