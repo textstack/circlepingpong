@@ -74,7 +74,6 @@ func onReset() -> void:
 	ballPoints = 0
 	cleanPowerups()
 
-
 func onBallRemoved() -> void:
 	super()
 	ballPoints = determinePointsNeeded(1)

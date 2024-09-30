@@ -99,7 +99,7 @@ script = ExtResource("1_r5k51")
 
 [node name="BallMdl" type="CharacterBody2D" parent="."]
 collision_layer = 2
-collision_mask = 9
+collision_mask = 11
 
 [node name="BasicTrail" type="GPUParticles2D" parent="BallMdl"]
 modulate = Color(0.5, 0.5, 0.5, 1)
