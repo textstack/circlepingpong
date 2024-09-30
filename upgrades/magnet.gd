@@ -1,13 +1,14 @@
 extends power_up
-class_name immunity
+class_name magnet
 var main_scene
 
 
 func apply_power_up(main):
-	print("immunity")
-	$PowerTime1.start()
+	print("magnet")
+	$PowerTime2.start()
 	main_scene = main
-	main.immunityBall()
+	
+	main.magnetBall()
 	
 	visible = false # This is to make the object noninteractable until it unqueus itself
 	set_collision_layer_value(3, false)
@@ -18,6 +19,6 @@ func apply_power_up(main):
 
 
 func deactivate_power():
-	print("end immunity")
-	main_scene.stopImmunityBall()
+	print("end magnet")
+	main_scene.unMagnetBall()
 	self.queue_free()

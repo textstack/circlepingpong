@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmev76rnvnf3y"]
+
+[ext_resource type="Texture2D" uid="uid://ds52q2f7jsyed" path="res://art/power_ups/slowballs.png" id="1_5mha6"]
+[ext_resource type="Script" path="res://upgrades/slow_balls.gd" id="1_tt77y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52cgr"]
+atlas = ExtResource("1_5mha6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmj7v"]
+atlas = ExtResource("1_5mha6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1tml"]
+atlas = ExtResource("1_5mha6")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwgqq"]
+atlas = ExtResource("1_5mha6")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvyio"]
+atlas = ExtResource("1_5mha6")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcc6s"]
+atlas = ExtResource("1_5mha6")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a3tww"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52cgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmj7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1tml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwgqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvyio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcc6s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kny63"]
+size = Vector2(54, 53)
+
+[sub_resource type="GDScript" id="GDScript_y0q71"]
+script/source = "extends CollisionShape2D
+"
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 29
+script = ExtResource("1_tt77y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_a3tww")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_kny63")
+script = SubResource("GDScript_y0q71")
+
+[node name="PowerTime3" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="PowerTime3" to="." method="deactivate_power"]

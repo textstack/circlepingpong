@@ -1,6 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://qfubdmubujux"]
+[gd_scene load_steps=9 format=3 uid="uid://qfubdmubujux"]
 
+[ext_resource type="Shader" path="res://objects/evil_ball.gdshader" id="1_33ktl"]
 [ext_resource type="Script" path="res://objects/paddle.gd" id="1_48h7q"]
+[ext_resource type="AudioStream" uid="uid://cnk5a8v7fl48e" path="res://sounds/powerup.mp3" id="3_mb5ml"]
+[ext_resource type="AudioStream" uid="uid://bjd37r6n5saja" path="res://sounds/power_down.mp3" id="4_a1nwl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yewq2"]
+shader = ExtResource("1_33ktl")
+shader_parameter/color = Vector4(1, 0, 0, 1)
+shader_parameter/opacity = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joshg"]
 size = Vector2(80, 20)
@@ -8,8 +16,28 @@ size = Vector2(80, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6r"]
 size = Vector2(80, 2)
 
+[sub_resource type="Environment" id="Environment_eqelj"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.45
+glow_strength = 2.0
+glow_mix = 0.377
+glow_blend_mode = 1
+glow_hdr_scale = 4.0
+glow_hdr_luminance_cap = 8.85
+
 [node name="Paddle" type="Node2D"]
+material = SubResource("ShaderMaterial_yewq2")
 script = ExtResource("1_48h7q")
+
+[node name="Power_Down_Sound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("4_a1nwl")
+
+[node name="Power_Up_Sound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("3_mb5ml")
+volume_db = -15.59
 
 [node name="PaddleMdl" type="AnimatableBody2D" parent="." groups=["paddle"]]
 collision_mask = 6
@@ -31,3 +59,13 @@ one_way_collision = true
 
 [node name="Polygon2D" type="Polygon2D" parent="PaddleMdl"]
 polygon = PackedVector2Array(-40, -10, 40, -10, 40, 10, -40, 10)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eqelj")
+
+[node name="GlowTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="GlowTimer" to="." method="_on_glow_timer_timeout"]
