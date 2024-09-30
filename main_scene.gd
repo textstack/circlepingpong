@@ -11,7 +11,6 @@ var disable_input: bool = false
 @onready var gameMusic = $Music
 @onready var endGameBoo = $EndGameSound
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gamemode 
