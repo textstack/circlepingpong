@@ -88,6 +88,19 @@ func onCollide(collision) -> void:
 	lastHit = Time.get_unix_time_from_system()
 
 
+func goTowardsPaddle():
+	if sideSpin != 0 or backSpin != Vector2(0, 0):
+		return
+	
+	if Time.get_unix_time_from_system() - lastHit < 0.5:
+		return
+	
+	var diff = paddle.position - position
+	var length = velocity.length()
+	velocity = velocity + diff * 0.1
+	velocity = velocity * (length / velocity.length())
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:	
 	var collision = $BallMdl.get_last_slide_collision()
@@ -99,7 +112,7 @@ func _physics_process(_delta: float) -> void:
 	
 	#Switch For magnetising velocity to paddle
 	if doMagnet:
-		pass
+		goTowardsPaddle()
 
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
