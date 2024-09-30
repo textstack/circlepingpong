@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://objects/evil_ball.gdshader" id="1_33ktl"]
 [ext_resource type="Script" path="res://objects/paddle.gd" id="1_48h7q"]
 [ext_resource type="AudioStream" uid="uid://cnk5a8v7fl48e" path="res://sounds/powerup.mp3" id="3_mb5ml"]
-[ext_resource type="AudioStream" uid="uid://bncd47lcrrpuy" path="res://sounds/power_down.wav" id="4_vhkoh"]
+[ext_resource type="AudioStream" uid="uid://bjd37r6n5saja" path="res://sounds/power_down.mp3" id="4_a1nwl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yewq2"]
 shader = ExtResource("1_33ktl")
@@ -29,6 +29,10 @@ glow_hdr_luminance_cap = 8.85
 [node name="Paddle" type="Node2D"]
 material = SubResource("ShaderMaterial_yewq2")
 script = ExtResource("1_48h7q")
+
+[node name="Power_Down_Sound" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("4_a1nwl")
 
 [node name="Power_Up_Sound" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
@@ -62,9 +66,6 @@ environment = SubResource("Environment_eqelj")
 [node name="GlowTimer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 5.0
-
-[node name="Power_Down_Sound" type="AudioStreamPlayer2D" parent="."]
-process_mode = 3
-stream = ExtResource("4_vhkoh")
+one_shot = true
 
 [connection signal="timeout" from="GlowTimer" to="." method="_on_glow_timer_timeout"]
