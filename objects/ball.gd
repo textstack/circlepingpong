@@ -18,7 +18,7 @@ var collideCount = 0
 var backSpin = Vector2(0, 0)
 var oldSpeed = 0
 var frontSpin = false
-var magnet = false
+var doMagnet = false
 var paddle
 var deleting = false
 
@@ -58,9 +58,11 @@ func handleSpin() -> void:
 		sideSpin *= randf_range(sideSpinMin, clamp(velocity.length() * sideSpinFactor, sideSpinMin, sideSpinMax))
 		backSpin *= randf_range(backSpinMin, backSpinMax)
 		oldSpeed = velocity.length()
+		$PaddleSpinSound.play()
 	else:
 		$BallMdl/CurveTrail.emitting = false
 		$BallMdl/BasicTrail.emitting = true
+		$PaddleHitSound.play()
 
 	collideCount += 1
 
@@ -96,7 +98,7 @@ func _physics_process(_delta: float) -> void:
 	velocity = velocity + backSpin
 	
 	#Switch For magnetising velocity to paddle
-	if magnet:
+	if doMagnet:
 		pass
 
 	$BallMdl.velocity = velocity
@@ -125,13 +127,13 @@ func doubleSpeed() -> void:
 
 
 func magnetize(p) -> void:
-	magnet = true
+	doMagnet = true
 	paddle = p
 	print("Ball Has been Magnetized")
 	#Takes paddle object and turns magnet switch to true
 
 
-func unMagnetize(p) -> void:
-	magnet = false
+func unMagnetize() -> void:
+	doMagnet = false
 	print("Ball Has been DeMagnetized")
 	#Turns Magnet Siwtch to False

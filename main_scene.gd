@@ -10,7 +10,6 @@ var disable_input: bool = false
 
 @onready var gameMusic = $Music
 @onready var endGameBoo = $EndGameSound
-@onready var paddleHit = $PaddleHitSound
 
 
 # Called when the node enters the scene tree for the first time.
@@ -55,7 +54,6 @@ func createBall() -> void:
 
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
-	paddleHit.play()
 	gamemode.onBallHit(ball, collision)
 	showPoints()
 	sparkPaddle(collision)
@@ -186,4 +184,4 @@ func unMagnetBall() -> void:
 	print("DeMagnetize all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.unMagnetize($Paddle)  # doubles the velocity of each ball
+			child.unMagnetize()  # doubles the velocity of each ball
