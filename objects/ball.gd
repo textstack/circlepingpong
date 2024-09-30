@@ -94,20 +94,19 @@ func _physics_process(_delta: float) -> void:
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
 
-
 func _on_delete_timer_timeout() -> void:
 	queue_free()
-
 
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
 	
+# Reduces the speed of a ball by half
 func halfSpeed() -> void:
-	$BallMdl.velocity = velocity * .5
-	print("g")
-	# I'm not super clear on velocity stuff with the ball so I'm not sure if this works
+	velocity *= 0.5
+	print("Ball speed halved:", velocity)
 	
+# Speeds up the by double
 func doubleSpeed() -> void:
-	$BallMdl.velocity = velocity * 2
-	print("s")
+	velocity *= 2
+	print("Ball sped back up")

@@ -206,14 +206,19 @@ func _on_spawn_timer_timeout() -> void:
 func activate_power(power) -> void:
 	power.apply_power_up(self) # This allows us to activate any power and makes power access to other
 							   # code easy so we can make the powers happen
+			
+# This function calls the halfSpeed function in class "ball" when the powerup is gained
 func slowBall() -> void:
-	print("Hello")
-	for child in get_tree().root.get_children():
+	print("Slowing down all balls")
+	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.halfSpeed()
+			child.halfSpeed()  # Halves the velocity of each ball
+			print("Slowed ball velocity:", child.velocity)
 	
+# This function calls the doubleSpeed function in class "ball" when the powerup time runsout
 func speedBall() -> void:
-	print("Bye")
-	for child in get_tree().root.get_children():
+	print("Speeding up all balls")
+	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.doubleSpeed()
+			child.doubleSpeed()  # doubles the velocity of each ball
+			print("Slowed ball velocity:", child.velocity)

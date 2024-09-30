@@ -26,7 +26,7 @@ func _physics_process(delta: float):
 			return
 		velocity = velocity.bounce(collision.get_normal())
 			
-# Function to create the powerup effect
+# Function to create the paddle glow powerup effect
 func powerup_effect(paddle):
 	print("Power-up activated!")
 	paddle.isGlow = true # Mark the isPower variable in Paddle as true
