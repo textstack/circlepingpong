@@ -18,6 +18,8 @@ var collideCount = 0
 var backSpin = Vector2(0, 0)
 var oldSpeed = 0
 var frontSpin = false
+var magnet = false
+var paddle
 
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
@@ -90,6 +92,10 @@ func _physics_process(_delta: float) -> void:
 	
 	velocity = velocity.rotated(sideSpin)
 	velocity = velocity + backSpin
+	
+	#Switch For magnetising velocity to paddle
+	if magnet:
+		pass
 
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
@@ -111,10 +117,13 @@ func doubleSpeed() -> void:
 	velocity *= 2
 	print("Ball sped back up")
 
-func magnetize(paddle) -> void:
-	
+func magnetize(p) -> void:
+	magnet = true
+	paddle = p
 	print("Ball Has been Magnetized")
+	#Takes paddle object and turns magnet switch to true
 
-func unMagnetize(paddle) -> void:
-	
+func unMagnetize(p) -> void:
+	magnet = false
 	print("Ball Has been DeMagnetized")
+	#Turns Magnet Siwtch to False
