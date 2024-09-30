@@ -1,11 +1,12 @@
-extends BaseGamemode
+extends EnduranceGamemode
 class_name DefaultGamemode
 
 #configurables
-var hitsForPowerup = 2
-var hitsIncrease = 1
+var hitsForPowerup = 3
+var hitsIncrease = 2
 
 var powerUps = []
+var hitsNeeded = hitsForPowerup
 var x2power = false
 var hits = 0
 
@@ -61,6 +62,7 @@ func cleanPowerups():
 func onReset() -> void:
 	super()
 	cleanPowerups()
+	hitsNeeded = hitsForPowerup
 
 
 func onGameOver() -> void:
