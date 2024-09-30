@@ -25,8 +25,6 @@ func determinePointsNeeded(minus: int = 0) -> int:
 
 func onBallHit(ball, _collision) -> void:
 	points += 1
-	if x2power:
-		points+=1
 	ballPoints += 1
 	ball.velocity = ball.velocity * speedMult
 	
@@ -37,6 +35,7 @@ func onBallHit(ball, _collision) -> void:
 func onShowPoints() -> String:
 	var pointsLeft = determinePointsNeeded() - ballPoints
 	return str(points, " (", pointsLeft, ")")
+
 
 func onReset() -> void:
 	super()

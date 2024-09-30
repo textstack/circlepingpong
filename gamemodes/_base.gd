@@ -8,8 +8,6 @@ var addSpeed = 7
 var points = 0
 var mainScene
 
-var x2power = false
-
 
 func getName() -> String:
 	return "One Ball"
@@ -17,8 +15,6 @@ func getName() -> String:
 
 func onBallHit(ball, _collision) -> void:
 	points += 1
-	if x2power:
-		points+=1
 	ball.velocity = ball.velocity * (getBallSpeed() / ball.velocity.length())
 
 
@@ -47,4 +43,8 @@ func onBallRemoved() -> void:
 
 
 func onCreateBall() -> void:
+	pass
+
+
+func onStart() -> void:
 	pass

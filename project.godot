@@ -17,7 +17,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-ModeAuto="*res://gamemodes/mode_auto.gd"
+ModeAuto="*res://mode_auto.gd"
 High="*res://high_score.gd"
 
 [display]

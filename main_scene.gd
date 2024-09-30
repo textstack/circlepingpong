@@ -2,23 +2,29 @@ extends Node2D
 
 # Variables
 var ballNode = preload("res://objects/ball.tscn")
+<<<<<<< HEAD
 var ballsInGame = 0
 var ang = randf_range(-PI, PI)       
 var countdownTime = 6
 var gamemode 
 var disable_input: bool = false
 var power_up = []
+=======
+var ballsInGame = 0 # counter for current ball count
+var ang = randf_range(-PI, PI)
+var gamemode
+var disable_input: bool = false
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 
 # On Ready variables
 @onready var gameMusic = $Music
 @onready var endGameBoo = $EndGameSound
-@onready var paddleHit = $PaddleHitSound
-@onready var gameOverLabel = $EndGame/end_game/PanelContainer2/Countdown
-@onready var gameOverTimer = $ResetTimer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gamemode 
+<<<<<<< HEAD
 	var selected_mode = ModeAuto.getMode()
 	if (selected_mode == 0):
 		gamemode = BaseGamemode.new()
@@ -38,10 +44,22 @@ func _ready() -> void:
 	$EndGame/end_game.hide()
 	
 	# Starts game music
+=======
+	gamemode = ModeAuto.getMode()
+	
+	$Gamemode/gamemode.hide()
+	$PauseMenu/pause_menu.hide()
+	$EndGame/end_game.hide()
+	
+	$PauseMenu/pause_menu.reset.connect(reset)
+	$EndGame/end_game.reset.connect(reset)
+	
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 	gameMusic.play()
 
 	# Remove current balls and spawn a new ball
 	gamemode.mainScene = self
+	gamemode.onStart()
 	$Region.lose.connect(onRemoveBall)
 	createBall()
 	positioning()
@@ -51,7 +69,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	resetShift()
 
+<<<<<<< HEAD
 # Function that spawns a new ball
+=======
+
+# Spawns a new ball
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 func createBall() -> void:
 	# Variables
 	var speed = gamemode.getBallSpeed()
@@ -68,6 +91,7 @@ func createBall() -> void:
 	inst.collide.connect(onBallHit)
 	add_child(inst)
 
+<<<<<<< HEAD
 # Counts powerup in the scene
 func power_up_count() -> int:
 	var count = 0
@@ -76,12 +100,15 @@ func power_up_count() -> int:
 			count += 1
 	return count
 	
+=======
+
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
-	paddleHit.play()
 	gamemode.onBallHit(ball, collision)
 	showPoints()
 	sparkPaddle(collision)
+
 
 # When a ball goes out of bounds, remove ball
 func onRemoveBall() -> void:
@@ -93,15 +120,18 @@ func onRemoveBall() -> void:
 	if ballsInGame <= 0:
 		gameOver()
 
+
 # Display points in the top left
 func showPoints() -> void:
 	$PointDisplay.text = gamemode.onShowPoints()
+
 
 # Positioning the black inner circle
 func positioning() -> void:
 	var size = Screen.getCircleRadius() / 60
 	$Region.scale = Vector2(size, size)
 	$Region.position = get_viewport_rect().size / 2
+
 
 # Paddle hit effect
 func sparkPaddle(collision) -> void:
@@ -129,20 +159,25 @@ func reset() -> void:
 	
 	# Reset points and balls
 	for b in get_tree().get_nodes_in_group("balls"):
+		b.deleting = true
 		b.queue_free()
+	
 	ballsInGame = 0
-	countdownTime = 6
 	$Background.lerpRotation = 0
-	$ResetTimer.stop()
 	showPoints()
 	createBall()
 	
+<<<<<<< HEAD
 	# Set the end game scene text
+=======
+	$EndGame/end_game/CircleMeter.killTimer()
+	
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 	if $EndGame/end_game.visible:
-		$EndGame/end_game/PanelContainer.hide()
 		var tween = get_tree().create_tween()
-		tween.tween_property($EndGame/end_game, "modulate", Color(255, 255, 255, 0), 0.5)
+		tween.tween_property($EndGame/end_game, "modulate", Color(1, 1, 1, 0), 0.5)
 		tween.tween_callback($EndGame/end_game.hide)
+
 
 # Called when the game has ended
 func gameOver():
@@ -152,6 +187,7 @@ func gameOver():
 	gamemode.onGameOver()
 	$EndGame/end_game.show()
 	$EndGame/end_game/ScoreContainer/Score.text = "HIGH SCORE: " + str(High.highscore)
+<<<<<<< HEAD
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
@@ -161,12 +197,15 @@ func gameOver():
 	for child in get_tree().root.get_children():
 		if child is power_up:
 			child.queue_free()
+=======
+	$EndGame/end_game/CircleMeter.startTimer(8, reset)
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 	
 	# Set the end game scene text
 	$EndGame/end_game.modulate.a = 0
 	var tween = get_tree().create_tween()
 	tween.tween_property($EndGame/end_game, "modulate", Color.WHITE, 0.5)
-	tween.tween_callback($EndGame/end_game/PanelContainer.show)
+
 
 # Allows user to right click to pause game
 func _input(event: InputEvent) -> void:
@@ -175,11 +214,16 @@ func _input(event: InputEvent) -> void:
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			return 
 
+<<<<<<< HEAD
 # Conditional function to decide highscore
+=======
+
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 func check_or_replace_highscore(score : int) -> void:
 	if High.highscore < score:
 		High.highscore = score
 
+<<<<<<< HEAD
 # When the game is over, show the end game screen and start the countdown
 func _on_ball_timer_timeout() -> void:
 	pass
@@ -214,31 +258,58 @@ func activate_power(power) -> void:
 	power.apply_power_up(self) 
 			
 # Slows down balls
+=======
+
+func activate_power(power) -> void:
+	power.apply_power_up(self) # This allows us to activate any power and makes power access to other
+							   # code easy so we can make the powers happen
+
+
+# This function calls the halfSpeed function in class "ball" when the powerup is gained
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 func slowBall() -> void:
 	print("Slowing down all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
+<<<<<<< HEAD
 			child.halfSpeed()                             # Halves the velocity of each ball
 	
 # Speeds up ball to original speed
+=======
+			child.halfSpeed()  # Halves the velocity of each ball
+
+
+# This function calls the doubleSpeed function in class "ball" when the powerup time runsout
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 func speedBall() -> void:
 	print("Speeding up all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
 			child.doubleSpeed()                           # Doubles the velocity of each ball
 
+<<<<<<< HEAD
 # Magnetizes ball
+=======
+
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 func magnetBall() -> void:
 	print("Magnetizing all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
+<<<<<<< HEAD
 			child.magnetize($Paddle)                      # Doubles the velocity of each ball
 
 # Unmagnetizes ball
+=======
+			child.magnetize($Paddle)  # doubles the velocity of each ball
+
+
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 func unMagnetBall() -> void:
 	print("DeMagnetize all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
+<<<<<<< HEAD
 			child.unMagnetize($Paddle)                    # Doubles the velocity of each ball
 			
 ## Makes the player immune to losing a ball
@@ -254,3 +325,6 @@ func stopImmunityBall() -> void:
 		for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 			if child is Ball:
 				child.stopImmunity()                    # Doubles the velocity of each ball
+=======
+			child.unMagnetize()  # doubles the velocity of each ball
+>>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
