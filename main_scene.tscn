@@ -138,16 +138,9 @@ volume_db = 4.634
 [node name="PaddleHitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_hls1i")
 
-[node name="BallTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="ResetTimer" type="Timer" parent="."]
-process_mode = 3
-
 [node name="SpawnTimer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 10.0
-autostart = true
 
 [node name="PointDisplay" type="Label" parent="."]
 offset_left = 22.0
@@ -183,6 +176,4 @@ stream = ExtResource("39_wlem0")
 volume_db = -13.198
 
 [connection signal="activate_power" from="Paddle" to="." method="activate_power"]
-[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
-[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -1,5 +1,7 @@
 extends Control
 
+signal reset
+
 
 # Resume hides the pause screen
 func resume():
@@ -32,8 +34,8 @@ func _on_quit_pressed() -> void:
 
 
 func _on_restart_pressed() -> void:
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	resume()
+	reset.emit()
 
 
 func _process(_delta: float):

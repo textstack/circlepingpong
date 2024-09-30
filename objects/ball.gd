@@ -20,6 +20,8 @@ var oldSpeed = 0
 var frontSpin = false
 var magnet = false
 var paddle
+var deleting = false
+
 
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
@@ -100,28 +102,34 @@ func _physics_process(_delta: float) -> void:
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
 
+
 func _on_delete_timer_timeout() -> void:
 	queue_free()
+
 
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
-	
+
+
 # Reduces the speed of a ball by half
 func halfSpeed() -> void:
 	velocity *= 0.5
 	print("Ball speed halved")
-	
+
+
 # Speeds up the by double
 func doubleSpeed() -> void:
 	velocity *= 2
 	print("Ball sped back up")
+
 
 func magnetize(p) -> void:
 	magnet = true
 	paddle = p
 	print("Ball Has been Magnetized")
 	#Takes paddle object and turns magnet switch to true
+
 
 func unMagnetize(p) -> void:
 	magnet = false
