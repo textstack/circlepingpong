@@ -118,3 +118,46 @@ func magnetize(paddle) -> void:
 func unMagnetize(paddle) -> void:
 	
 	print("Ball Has been DeMagnetized")
+	
+func startImmunity() -> void:
+	# Print message for debug
+	print("Ball is now immune and will bounce off the region")
+#
+	# Adjust the collision layer and mask to make the ball immune to specific collisions
+	# Set which collision layers this ball belongs to
+	
+	# Set the collision mask for this ball (which layers it can collide with)
+	$BallMdl.set_collision_layer_value(2, true)
+	$BallMdl.set_collision_mask_value(1, true)
+	$BallMdl.set_collision_mask_value(4, true)
+	$BallMdl.set_collision_mask_value(5, true)
+	
+func stopImmunity() -> void:
+	# Print message for debug
+	print("Ball is no longer immune")
+
+	# Revert the collision layer and mask to allow the ball to interact with other layers again
+
+	# Set the ball's original collision layer (assuming it belongs to layer 1, adjust if necessary)
+	#$BallMdl.set_collision_layer_value(1, true)  # Restore collision layer for normal interaction
+#
+	## Re-enable collision mask to interact with all necessary layers (adjust based on your game setup)
+	## Assume that the ball should collide with layers 1, 2, and 3 (for example):
+	#$BallMdl.set_collision_mask_value(1, true)  # Re-enable collision with layer 1
+	#$BallMdl.set_collision_mask_value(2, true)  # Re-enable collision with layer 2
+	#$BallMdl.set_collision_mask_value(3, true)  # Re-enable collision with layer 3
+	# Disable any other layers you don't want the ball to collide with anymore
+	
+	# Assuming the original layer value was 1, and we need to disable layer 2 (used in immunity)
+	$BallMdl.set_collision_layer_value(2, false)  # Disable the immunity collision layer
+
+	# Revert the collision mask values to what they were before startImmunity()
+	$BallMdl.set_collision_mask_value(1, false)  # Disable collision with layer 1
+	$BallMdl.set_collision_mask_value(4, false)  # Disable collision with layer 4
+	$BallMdl.set_collision_mask_value(5, false)  # Disable collision with layer 5
+
+
+	
+
+	
+	

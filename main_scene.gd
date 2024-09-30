@@ -1,15 +1,15 @@
 extends Node2D
 
-#var immuneNode = load("res://upgrades/immunity.tscn")
-#var immuneSpawn
+# Variables
 var ballNode = preload("res://objects/ball.tscn")
-var ballsInGame = 0 # counter for current ball count
-var ang = randf_range(-PI, PI)
+var ballsInGame = 0
+var ang = randf_range(-PI, PI)       
 var countdownTime = 6
 var gamemode 
 var disable_input: bool = false
-var power_up = []	# List for powerups
+var power_up = []
 
+# On Ready variables
 @onready var gameMusic = $Music
 @onready var endGameBoo = $EndGameSound
 @onready var paddleHit = $PaddleHitSound
@@ -26,19 +26,21 @@ func _ready() -> void:
 		gamemode = EnduranceGamemode.new()
 		$SpawnTimer.start()
 		
-	# ADD NEW POWERUPS HERE TO THE LIST
-	#power_up.append(preload("res://upgrades/immunity.tscn"));
-	power_up.append(preload("res://upgrades/magnet.tscn"));
+	# Adding powerups to the list
+	power_up.append(preload("res://upgrades/immunity.tscn"));
+	#power_up.append(preload("res://upgrades/magnet.tscn"));
 	#power_up.append(preload("res://upgrades/slow_balls.tscn"));
 	#power_up.append(preload("res://upgrades/x2points.tscn"));
 	
-	
+	# Hide pause screen
 	$"Game Mode"/game_mode.hide()
 	$PauseMenu/pause_menu.hide()
 	$EndGame/end_game.hide()
 	
+	# Starts game music
 	gameMusic.play()
 
+	# Remove current balls and spawn a new ball
 	gamemode.mainScene = self
 	$Region.lose.connect(onRemoveBall)
 	createBall()
@@ -49,14 +51,18 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	resetShift()
 
-# Spawns a new ball
+# Function that spawns a new ball
 func createBall() -> void:
-	ballsInGame += 1
-	gamemode.onCreateBall()
-	showPoints()
-	
+	# Variables
 	var speed = gamemode.getBallSpeed()
 	var inst = ballNode.instantiate()
+	ballsInGame += 1       
+	
+	# Update points and call ball from gamemode class
+	gamemode.onCreateBall()
+	showPoints()
+
+	# Set the position, velocity and colliision of the ball
 	inst.position = get_viewport_rect().size / 2
 	inst.velocity = Vector2(cos(ang) * speed, sin(ang) * speed)
 	inst.collide.connect(onBallHit)
@@ -69,12 +75,6 @@ func power_up_count() -> int:
 		if child is power_up:
 			count += 1
 	return count
-		
-# Spawns immunity powerup
-#func createImmune() -> void:
-	#immuneSpawn = immuneNode.instantiate()
-	#immuneSpawn.position = get_viewport_rect().size / 2
-	#add_child(immuneSpawn)
 	
 # When the paddle hits a ball, update points and call a paddle animation
 func onBallHit(ball, collision) -> void:
@@ -88,7 +88,8 @@ func onRemoveBall() -> void:
 	ballsInGame -= 1
 	gamemode.onBallRemoved()
 	showPoints()
-
+	
+	# Conditional for end game
 	if ballsInGame <= 0:
 		gameOver()
 
@@ -109,7 +110,6 @@ func sparkPaddle(collision) -> void:
 	$PaddleSpark.position = collision.get_position()
 	$PaddleSpark.emitting = true
 
-
 # Reset the 3 pixel shift when the paddle hits a ball
 var originalPos = position
 var shifted = false
@@ -122,7 +122,6 @@ func resetShift() -> void:
 			shifted = true
 	else:
 		shifted = false
-
 
 # Reset the entire game
 func reset() -> void:
@@ -138,6 +137,7 @@ func reset() -> void:
 	showPoints()
 	createBall()
 	
+	# Set the end game scene text
 	if $EndGame/end_game.visible:
 		$EndGame/end_game/PanelContainer.hide()
 		var tween = get_tree().create_tween()
@@ -155,7 +155,6 @@ func gameOver():
 	$BallTimer.start()
 	gameOverLabel.text = "RESTARTING IN ( %d )" % countdownTime
 	$ResetTimer.start()
-	
 	$SpawnTimer.stop() 
 	
 	# Get rid of powerups in scene
@@ -163,21 +162,23 @@ func gameOver():
 		if child is power_up:
 			child.queue_free()
 	
+	# Set the end game scene text
 	$EndGame/end_game.modulate.a = 0
 	var tween = get_tree().create_tween()
 	tween.tween_property($EndGame/end_game, "modulate", Color.WHITE, 0.5)
 	tween.tween_callback($EndGame/end_game/PanelContainer.show)
 
+# Allows user to right click to pause game
 func _input(event: InputEvent) -> void:
 	if disable_input:
 		# Ignore specific input when the game is over
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			return 
 
+# Conditional function to decide highscore
 func check_or_replace_highscore(score : int) -> void:
 	if High.highscore < score:
 		High.highscore = score
-
 
 # When the game is over, show the end game screen and start the countdown
 func _on_ball_timer_timeout() -> void:
@@ -192,43 +193,64 @@ func _on_reset_timer_timeout() -> void:
 	else:
 		reset()
 		
+# Timer to decide time of powerups
 func _on_spawn_timer_timeout() -> void:
+	
+	# Conditional to spawn and remove powerups
 	if power_up_count() < 1:
 		
+		# variables
 		var rand = randi() % power_up.size()
 		var power_instance = power_up[rand].instantiate()
+		
+		# Add powerup
 		get_tree().root.add_child(power_instance)
 		power_instance.position = get_viewport_rect().size / 2
 	else:
 		pass
 	
-	
+# Activate any power & makes power allows access to other classes
 func activate_power(power) -> void:
-	power.apply_power_up(self) # This allows us to activate any power and makes power access to other
-							   # code easy so we can make the powers happen
+	power.apply_power_up(self) 
 			
-# This function calls the halfSpeed function in class "ball" when the powerup is gained
+# Slows down balls
 func slowBall() -> void:
 	print("Slowing down all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.halfSpeed()  # Halves the velocity of each ball
+			child.halfSpeed()                             # Halves the velocity of each ball
 	
-# This function calls the doubleSpeed function in class "ball" when the powerup time runsout
+# Speeds up ball to original speed
 func speedBall() -> void:
 	print("Speeding up all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.doubleSpeed()  # doubles the velocity of each ball
+			child.doubleSpeed()                           # Doubles the velocity of each ball
 
+# Magnetizes ball
 func magnetBall() -> void:
 	print("Magnetizing all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.magnetize($Paddle)  # doubles the velocity of each ball
-	
+			child.magnetize($Paddle)                      # Doubles the velocity of each ball
+
+# Unmagnetizes ball
 func unMagnetBall() -> void:
 	print("DeMagnetize all balls")
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
-			child.unMagnetize($Paddle)  # doubles the velocity of each ball
+			child.unMagnetize($Paddle)                    # Doubles the velocity of each ball
+			
+## Makes the player immune to losing a ball
+func startImmunityBall() -> void:
+		print("Start immunity")
+		for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
+			if child is Ball:
+				child.startImmunity()                    # Doubles the velocity of each ball
+			
+## Stops the immunity power	
+func stopImmunityBall() -> void:
+		print("Stop immunity")
+		for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
+			if child is Ball:
+				child.stopImmunity()                    # Doubles the velocity of each ball

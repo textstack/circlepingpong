@@ -47,6 +47,11 @@ pause={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Paddle"
+2d_physics/layer_2="Ball"
+
 [rendering]
 
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
