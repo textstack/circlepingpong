@@ -29,7 +29,7 @@ default_font_size = 90
 
 [sub_resource type="Theme" id="Theme_kt36c"]
 default_font = ExtResource("3_ae5ks")
-default_font_size = 45
+default_font_size = 40
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b7g3"]
 atlas = ExtResource("8_lr1vc")
@@ -358,31 +358,32 @@ theme = SubResource("Theme_kt36c")
 text = "Gamemodes:
 Endurance - Multi-ball, full powerups
 Base - One ball, no powerups
-\"Nux Mode\" - One ball, powerups
+\"Nux Mode\" - Multi slow ball, powerups
+Default Mode - One ball, poewrups
 
-           x2 points          Slow balls
+           x2 points                Slow balls
 
-           Immunity          mAgnet 
+           Immunity                 mAgnet 
 
 "
 
 [node name="Immunity" type="AnimatedSprite2D" parent="."]
-position = Vector2(-225, 185)
+position = Vector2(-240, 215)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_t4qgv")
 
 [node name="x2Points" type="AnimatedSprite2D" parent="."]
-position = Vector2(-225, 90)
+position = Vector2(-240, 135)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bj3ms")
 
 [node name="SlowBalls" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, 90)
+position = Vector2(15, 135)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nvxlg")
 
 [node name="Magnet" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, 185)
+position = Vector2(15, 215)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xo6qr")
 
