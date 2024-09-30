@@ -1,33 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://ct4um6hd5ljc2"]
+[gd_scene load_steps=11 format=3 uid="uid://ct4um6hd5ljc2"]
 
 [ext_resource type="Script" path="res://objects/ball.gd" id="1_r5k51"]
 [ext_resource type="Texture2D" uid="uid://b3o1dvsd65yl2" path="res://assets/circle.png" id="2_4411h"]
 [ext_resource type="Texture2D" uid="uid://cwr618c6gwd83" path="res://assets/circle1.png" id="3_ng2ht"]
-[ext_resource type="AudioStream" uid="uid://d0ip4xeg6f8kf" path="res://sounds/pong1.mp3" id="4_d2eam"]
-[ext_resource type="AudioStream" uid="uid://2tbqniavqyl7" path="res://sounds/pong2.mp3" id="5_vv5co"]
-[ext_resource type="AudioStream" uid="uid://38n01sdnwjgf" path="res://sounds/pong21.mp3" id="6_jyom7"]
-[ext_resource type="AudioStream" uid="uid://bj0d8j1ym0v6h" path="res://sounds/pong23.mp3" id="7_wdb73"]
-[ext_resource type="AudioStream" uid="uid://fwd0tvioujhs" path="res://sounds/pong24.mp3" id="8_vgrkp"]
-[ext_resource type="AudioStream" uid="uid://bapaiavhn1njg" path="res://sounds/pong3.mp3" id="9_eoy6j"]
-[ext_resource type="AudioStream" uid="uid://d3ffkf24r6dbi" path="res://sounds/pong4.mp3" id="10_w2frc"]
-[ext_resource type="AudioStream" uid="uid://bf62vqhkrippl" path="res://sounds/pong5.mp3" id="11_ykbc2"]
-[ext_resource type="AudioStream" uid="uid://c5t6kaak5t0h7" path="res://sounds/pong6.mp3" id="12_eymn6"]
-[ext_resource type="AudioStream" uid="uid://byu8pg7o64mxd" path="res://sounds/pong7.mp3" id="13_qp1vp"]
-[ext_resource type="AudioStream" uid="uid://5vr5m7qmpp8b" path="res://sounds/pong8.mp3" id="14_a3f04"]
-[ext_resource type="AudioStream" uid="uid://dxoj1j6eguu6c" path="res://sounds/pong9.mp3" id="15_qxtaf"]
-[ext_resource type="AudioStream" uid="uid://bvnxwwsj1a1b1" path="res://sounds/pong10.mp3" id="16_85b34"]
-[ext_resource type="AudioStream" uid="uid://d4lcuptpjj0ih" path="res://sounds/pong11.mp3" id="17_j1m7c"]
-[ext_resource type="AudioStream" uid="uid://b563ysu4p0jua" path="res://sounds/pong12.mp3" id="18_bvhsm"]
-[ext_resource type="AudioStream" uid="uid://sowis1oqs7rv" path="res://sounds/pong22.mp3" id="19_6asmp"]
-[ext_resource type="AudioStream" uid="uid://bq2vy8hd3jacf" path="res://sounds/pong25.mp3" id="20_x0xrh"]
-[ext_resource type="AudioStream" uid="uid://d1tx4jpnywd7k" path="res://sounds/pong13.mp3" id="21_l0son"]
-[ext_resource type="AudioStream" uid="uid://c73m127vbi6di" path="res://sounds/pong14.mp3" id="22_xtivy"]
-[ext_resource type="AudioStream" uid="uid://boo20o13cmnlj" path="res://sounds/pong15.mp3" id="23_xqisd"]
-[ext_resource type="AudioStream" uid="uid://c06onlldxc0js" path="res://sounds/pong16.mp3" id="24_cdguw"]
-[ext_resource type="AudioStream" uid="uid://b1oujyne6us33" path="res://sounds/pong17.mp3" id="25_oo4pp"]
-[ext_resource type="AudioStream" uid="uid://dfuxnjfwtnm1p" path="res://sounds/pong18.mp3" id="26_w7abm"]
-[ext_resource type="AudioStream" uid="uid://ch8ppogg2wug8" path="res://sounds/pong19.mp3" id="27_1ytyx"]
-[ext_resource type="AudioStream" uid="uid://ct68hvq2s85yd" path="res://sounds/pong20.mp3" id="28_4aijw"]
 
 [sub_resource type="Curve" id="Curve_3e71x"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -62,37 +37,6 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.25
 scale_max = 0.25
 scale_curve = SubResource("CurveTexture_ycip7")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o3mbi"]
-streams_count = 13
-stream_0/stream = ExtResource("4_d2eam")
-stream_1/stream = ExtResource("5_vv5co")
-stream_2/stream = ExtResource("9_eoy6j")
-stream_3/stream = ExtResource("10_w2frc")
-stream_4/stream = ExtResource("11_ykbc2")
-stream_5/stream = ExtResource("12_eymn6")
-stream_6/stream = ExtResource("13_qp1vp")
-stream_7/stream = ExtResource("14_a3f04")
-stream_8/stream = ExtResource("15_qxtaf")
-stream_9/stream = ExtResource("16_85b34")
-stream_10/stream = ExtResource("6_jyom7")
-stream_11/stream = ExtResource("7_wdb73")
-stream_12/stream = ExtResource("8_vgrkp")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o8f18"]
-streams_count = 12
-stream_0/stream = ExtResource("17_j1m7c")
-stream_1/stream = ExtResource("18_bvhsm")
-stream_2/stream = ExtResource("21_l0son")
-stream_3/stream = ExtResource("22_xtivy")
-stream_4/stream = ExtResource("23_xqisd")
-stream_5/stream = ExtResource("24_cdguw")
-stream_6/stream = ExtResource("25_oo4pp")
-stream_7/stream = ExtResource("26_w7abm")
-stream_8/stream = ExtResource("27_1ytyx")
-stream_9/stream = ExtResource("28_4aijw")
-stream_10/stream = ExtResource("19_6asmp")
-stream_11/stream = ExtResource("20_x0xrh")
 
 [node name="Ball" type="Node2D" groups=["balls"]]
 script = ExtResource("1_r5k51")
@@ -133,12 +77,6 @@ one_shot = true
 [node name="SpinTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="PaddleHitSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_o3mbi")
-
-[node name="PaddleSpinSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_o8f18")
 
 [connection signal="timeout" from="DeleteTimer" to="." method="_on_delete_timer_timeout"]
 [connection signal="timeout" from="SpinTimer" to="." method="_on_spin_timer_timeout"]

@@ -3,12 +3,10 @@ class_name power_up # Base class for all powerups
 
 @export var speed = 120
 
-
 func _ready():
 	$AnimatedSprite2D.play("default")
 	velocity = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized() * speed
-
-
+	
 # Function to determine the actions after collision
 func _physics_process(delta: float):
 	var collision = move_and_collide(velocity * delta) # get the collisoin
@@ -27,10 +25,12 @@ func _physics_process(delta: float):
 			
 			return
 		velocity = velocity.bounce(collision.get_normal())
-
-
+			
 # Function to create the paddle glow powerup effect
 func powerup_effect(paddle):
 	print("Power-up activated!")
 	paddle.isGlow = true # Mark the isPower variable in Paddle as true
 	paddle.activate_glow(self) # sends power instance to paddle
+
+
+	

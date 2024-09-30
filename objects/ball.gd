@@ -18,11 +18,6 @@ var collideCount = 0
 var backSpin = Vector2(0, 0)
 var oldSpeed = 0
 var frontSpin = false
-var doMagnet = false
-var paddle
-var deleting = false
-var modSpeed = 0
-
 
 func _init() -> void:
 	lastHit = Time.get_unix_time_from_system()
@@ -59,11 +54,9 @@ func handleSpin() -> void:
 		sideSpin *= randf_range(sideSpinMin, clamp(velocity.length() * sideSpinFactor, sideSpinMin, sideSpinMax))
 		backSpin *= randf_range(backSpinMin, backSpinMax)
 		oldSpeed = velocity.length()
-		$PaddleSpinSound.play()
 	else:
 		$BallMdl/CurveTrail.emitting = false
 		$BallMdl/BasicTrail.emitting = true
-		$PaddleHitSound.play()
 
 	collideCount += 1
 
@@ -87,25 +80,6 @@ func onCollide(collision) -> void:
 	handleSpin()
 	collide.emit(self, collision)
 	lastHit = Time.get_unix_time_from_system()
-	
-	if modSpeed > 0:
-		velocity = velocity * (modSpeed / velocity.length())
-
-
-func goTowardsPaddle():
-	if not doMagnet:
-		return
-	
-	if sideSpin != 0 or backSpin != Vector2(0, 0):
-		return
-	
-	if Time.get_unix_time_from_system() - lastHit < 0.5:
-		return
-	
-	var diff = paddle.position - position
-	var length = velocity.length()
-	velocity = velocity + diff * 0.1
-	velocity = velocity * (length / velocity.length())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -116,43 +90,31 @@ func _physics_process(_delta: float) -> void:
 	
 	velocity = velocity.rotated(sideSpin)
 	velocity = velocity + backSpin
-	
-	goTowardsPaddle()
-	
+
 	$BallMdl.velocity = velocity
 	$BallMdl.move_and_slide()
-
 
 func _on_delete_timer_timeout() -> void:
 	queue_free()
 
-
 func _on_spin_timer_timeout() -> void:
 	frontSpin = true
 	$BallMdl/Spindicator.visible = true
-
-
+	
 # Reduces the speed of a ball by half
 func halfSpeed() -> void:
-	if modSpeed > 0:
-		return
-	
-	modSpeed = velocity.length() / 2
-	velocity = velocity * (modSpeed / velocity.length())
+	velocity *= 0.5
 	print("Ball speed halved")
-
-
+	
 # Speeds up the by double
 func doubleSpeed() -> void:
-	if modSpeed <= 0:
-		return
-	
-	velocity = velocity * 2
-	modSpeed = 0
+	velocity *= 2
 	print("Ball sped back up")
 
+func magnetize(paddle) -> void:
+	
+	print("Ball Has been Magnetized")
 
-<<<<<<< HEAD
 func unMagnetize(paddle) -> void:
 	
 	print("Ball Has been DeMagnetized")
@@ -199,16 +161,3 @@ func stopImmunity() -> void:
 
 	
 	
-=======
-func magnetize(p) -> void:
-	doMagnet = true
-	paddle = p
-	print("Ball has been magnetized")
-	#Takes paddle object and turns magnet switch to true
-
-
-func unMagnetize() -> void:
-	doMagnet = false
-	print("Ball has been demagnetized")
-	#Turns Magnet Siwtch to False
->>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892

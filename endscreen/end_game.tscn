@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://endscreen/end_game.gd" id="1_u5ohy"]
 [ext_resource type="FontFile" uid="uid://dmccec4vuw4b5" path="res://fonts/PixelGame-R9AZe.otf" id="2_8lrf0"]
 [ext_resource type="Script" path="res://endscreen/game_over.gd" id="2_dgpys"]
-[ext_resource type="PackedScene" uid="uid://civxxy3bqlvm2" path="res://objects/circle_meter.tscn" id="4_mufhk"]
 
 [sub_resource type="Theme" id="Theme_3wf6y"]
 default_font = ExtResource("2_8lrf0")
@@ -20,6 +19,9 @@ Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/font_sizes/font_size = 60
 Button/fonts/font = ExtResource("2_8lrf0")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x31xh"]
+bg_color = Color(1, 1, 1, 0)
+
 [node name="end_game" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -28,6 +30,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u5ohy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -477.0
+offset_top = -593.0
+offset_right = 631.0
+offset_bottom = 515.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.741176)
 
 [node name="GameOver" type="RichTextLabel" parent="."]
 process_mode = 3
@@ -105,15 +123,29 @@ size_flags_vertical = 3
 theme = SubResource("Theme_7e07x")
 text = "Quit to main"
 
-[node name="CircleMeter" parent="." instance=ExtResource("4_mufhk")]
+[node name="PanelContainer2" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -41.0
-offset_bottom = -41.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.293
+anchor_right = 0.5
+anchor_bottom = 0.839
+offset_left = -268.0
+offset_top = 297.2
+offset_right = 277.0
+offset_bottom = 60.6
+grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.4, 0.4)
+theme_override_styles/panel = SubResource("StyleBoxFlat_x31xh")
+
+[node name="Countdown" type="Label" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+theme_override_fonts/font = ExtResource("2_8lrf0")
+theme_override_font_sizes/font_size = 70
+text = "5
+"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -13,11 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://2tbqniavqyl7" path="res://sounds/pong2.mp3" id="8_1dall"]
 [ext_resource type="AudioStream" uid="uid://d4lcuptpjj0ih" path="res://sounds/pong11.mp3" id="9_7irea"]
 [ext_resource type="AudioStream" uid="uid://b563ysu4p0jua" path="res://sounds/pong12.mp3" id="10_liyvr"]
-<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemodes/game_mode.tscn" id="10_n7e1q"]
-=======
-[ext_resource type="PackedScene" uid="uid://cs5jnsmcmxqdn" path="res://gamemode.tscn" id="10_n7e1q"]
->>>>>>> 2fc55027e1e51ba3a30fc5ffbb2e381225526892
 [ext_resource type="AudioStream" uid="uid://d1tx4jpnywd7k" path="res://sounds/pong13.mp3" id="11_psxq2"]
 [ext_resource type="AudioStream" uid="uid://c73m127vbi6di" path="res://sounds/pong14.mp3" id="12_8gxmj"]
 [ext_resource type="AudioStream" uid="uid://boo20o13cmnlj" path="res://sounds/pong15.mp3" id="13_tpnwb"]
@@ -142,9 +138,16 @@ volume_db = 4.634
 [node name="PaddleHitSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_hls1i")
 
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ResetTimer" type="Timer" parent="."]
+process_mode = 3
+
 [node name="SpawnTimer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 10.0
+autostart = true
 
 [node name="PointDisplay" type="Label" parent="."]
 offset_left = 22.0
@@ -164,9 +167,9 @@ text = "0 (0)"
 
 [node name="end_game" parent="EndGame" instance=ExtResource("7_8s8su")]
 
-[node name="Gamemode" type="CanvasLayer" parent="."]
+[node name="Game Mode" type="CanvasLayer" parent="."]
 
-[node name="gamemode" parent="Gamemode" instance=ExtResource("10_n7e1q")]
+[node name="game_mode" parent="Game Mode" instance=ExtResource("10_n7e1q")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -180,4 +183,6 @@ stream = ExtResource("39_wlem0")
 volume_db = -13.198
 
 [connection signal="activate_power" from="Paddle" to="." method="activate_power"]
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

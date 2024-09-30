@@ -1,10 +1,10 @@
 extends Node
 
 # Var for gamemode setting
-@onready var selected_mode = BaseGamemode.new()
+var selected_mode: int = 0
 
-func setMode(mode):
+func setMode(mode:int):
 	selected_mode = mode
 	
-func getMode():
+func getMode() -> int:
 	return selected_mode
