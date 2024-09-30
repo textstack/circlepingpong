@@ -104,7 +104,7 @@ func _on_spin_timer_timeout() -> void:
 # Reduces the speed of a ball by half
 func halfSpeed() -> void:
 	velocity *= 0.5
-	print("Ball speed halved:", velocity)
+	print("Ball speed halved")
 	
 # Speeds up the by double
 func doubleSpeed() -> void:
