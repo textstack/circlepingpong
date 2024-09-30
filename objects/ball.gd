@@ -3,7 +3,7 @@ class_name Ball
 
 signal collide(ball, collision)
 
-#configurables
+# configurables
 var spinChance = 15
 var sideSpinMin = 0.01
 var sideSpinMax = 0.03
@@ -22,6 +22,10 @@ var doMagnet = false
 var paddle
 var deleting = false
 var modSpeed = 0
+
+# Store the original collision layers and masks for the ball
+var original_collision_layers = 0
+var original_collision_masks = 0
 
 
 func _init() -> void:
@@ -151,6 +155,11 @@ func doubleSpeed() -> void:
 	modSpeed = 0
 	print("Ball sped back up")
 
+## TESTING
+#func resetBallSpeeds() -> void:
+	#for ball in main_scene.get_children():
+		#if ball is Ball:
+			#ball.doubleSpeed()
 
 func magnetize(p) -> void:
 	doMagnet = true
@@ -163,3 +172,22 @@ func unMagnetize() -> void:
 	doMagnet = false
 	print("Ball has been demagnetized")
 	#Turns Magnet Siwtch to False
+	
+func immunity() -> void:
+	# Save the original collision layers and masks before modifying
+	original_collision_layers = $BallMdl.collision_layer
+	original_collision_masks = $BallMdl.collision_mask
+	
+	$BallMdl.set_collision_layer_value(2, true)
+	$BallMdl.set_collision_mask_value(1, true)
+	$BallMdl.set_collision_mask_value(4, true)
+	$BallMdl.set_collision_mask_value(5, true)
+	
+	
+	print("Ball is immune")
+	
+func noImmunity() -> void:
+	$BallMdl.collision_layer = original_collision_layers
+	$BallMdl.collision_mask = original_collision_masks
+	print("Ball is no longer immune")
+	

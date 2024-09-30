@@ -185,3 +185,15 @@ func unMagnetBall() -> void:
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
 			child.unMagnetize()  # doubles the velocity of each ball
+
+func immunityBall() -> void:
+	print("Immunity for balls")
+	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
+		if child is Ball:
+			child.immunity()  # doubles the velocity of each ball
+			
+func stopImmunityBall() -> void:
+	print("Immunity for balls")
+	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
+		if child is Ball:
+			child.noImmunity()  # doubles the velocity of each ball
