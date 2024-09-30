@@ -1,15 +1,22 @@
 extends power_up
 class_name immunity
+var main_scene
 
-func apply_power_up(power):
+func apply_power_up(main):
 	print("immunity")
 	$PowerTime1.start()
-	for child in get_node("res://main_scene").get_tree().root.get_children():
-		if child is Ball:
-			pass
+	main_scene = main
 	
+	
+	
+	visible = false # This is to make the object noninteractable until it unqueus itself
+	set_collision_layer_value(3, false)
+	set_collision_mask_value(1, false)
+	set_collision_mask_value(3, false)
+	set_collision_mask_value(4, false)
+	set_collision_mask_value(5, false)
 
-func rescind_power_up():
-	for child in get_node("res://main_scene").get_tree().root.get_children():
-		if child is Ball:
-			pass
+func deactivate_power():
+	print("end immunity")
+	
+	self.queue_free()

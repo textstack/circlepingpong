@@ -28,8 +28,8 @@ func _ready() -> void:
 		
 	# ADD NEW POWERUPS HERE TO THE LIST
 	#power_up.append(preload("res://upgrades/immunity.tscn"));
-	#power_up.append(preload("res://upgrades/magnet.tscn"));
-	power_up.append(preload("res://upgrades/slow_balls.tscn"));
+	power_up.append(preload("res://upgrades/magnet.tscn"));
+	#power_up.append(preload("res://upgrades/slow_balls.tscn"));
 	#power_up.append(preload("res://upgrades/x2points.tscn"));
 	
 	
@@ -220,3 +220,15 @@ func speedBall() -> void:
 	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
 		if child is Ball:
 			child.doubleSpeed()  # doubles the velocity of each ball
+
+func magnetBall() -> void:
+	print("Magnetizing all balls")
+	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
+		if child is Ball:
+			child.magnetize($Paddle)  # doubles the velocity of each ball
+	
+func unMagnetBall() -> void:
+	print("DeMagnetize all balls")
+	for child in get_tree().get_nodes_in_group("balls"):  # Ensure all balls are in the "balls" group
+		if child is Ball:
+			child.unMagnetize($Paddle)  # doubles the velocity of each ball

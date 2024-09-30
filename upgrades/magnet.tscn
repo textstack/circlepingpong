@@ -73,4 +73,4 @@ frame_progress = 0.681799
 [node name="PowerTime2" type="Timer" parent="."]
 wait_time = 5.0
 
-[connection signal="timeout" from="PowerTime2" to="." method="_on_power_time_2_timeout"]
+[connection signal="timeout" from="PowerTime2" to="." method="deactivate_power"]

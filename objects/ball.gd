@@ -110,3 +110,11 @@ func halfSpeed() -> void:
 func doubleSpeed() -> void:
 	velocity *= 2
 	print("Ball sped back up")
+
+func magnetize(paddle) -> void:
+	
+	print("Ball Has been Magnetized")
+
+func unMagnetize(paddle) -> void:
+	
+	print("Ball Has been DeMagnetized")
