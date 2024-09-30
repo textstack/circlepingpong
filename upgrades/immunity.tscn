@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://upgrades/immunity.gd" id="1_txi7o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b77f0"]
-size = Vector2(29, 29)
+size = Vector2(27, 27)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b7g3"]
 atlas = ExtResource("1_q02j3")
