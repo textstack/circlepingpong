@@ -84,7 +84,7 @@ anchor_bottom = 0.5
 offset_left = -235.0
 offset_top = -38.0
 offset_right = 236.0
-offset_bottom = 209.0
+offset_bottom = 221.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -100,6 +100,7 @@ text = "Restart"
 
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
 process_mode = 3
+layout_direction = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_7e07x")
