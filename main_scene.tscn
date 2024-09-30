@@ -144,7 +144,7 @@ stream = SubResource("AudioStreamRandomizer_hls1i")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 process_mode = 3
-wait_time = 10.0
+wait_time = 5.915
 
 [node name="PointDisplay" type="Label" parent="."]
 offset_left = 22.0
