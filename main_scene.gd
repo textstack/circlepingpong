@@ -14,27 +14,8 @@ var disable_input: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-<<<<<<< Updated upstream
 	# Gamemode 
 	gamemode = ModeAuto.getMode()
-=======
-	# Gamemode selection
-	var selected_mode = ModeAuto.getMode()
-	if (selected_mode == 0):
-		gamemode = BaseGamemode.new()
-	if (selected_mode == 1):
-		gamemode = EnduranceGamemode.new()
-		$SpawnTimer.start()
-	if (selected_mode == 2):
-		gamemode = NuxMode.new()
-		$SpawnTimer.start()
-		
-	# ADD NEW POWERUPS HERE TO THE LIST
-	#power_up.append(preload("res://upgrades/immunity.tscn"));
-	power_up.append(preload("res://upgrades/magnet.tscn"));
-	#power_up.append(preload("res://upgrades/slow_balls.tscn"));
-	#power_up.append(preload("res://upgrades/x2points.tscn"));
->>>>>>> Stashed changes
 	
 	$Gamemode/gamemode.hide()
 	$PauseMenu/pause_menu.hide()
