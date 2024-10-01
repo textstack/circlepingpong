@@ -14,7 +14,7 @@ func _init() -> void:
 
 # Getter for current game mode
 func getName() -> String:
-	return "Endurance"
+	return "No Upgrades"
 
 # Determine point for next ball spawn
 func determinePointsNeeded(minus: int = 0) -> int:
